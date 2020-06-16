@@ -8,18 +8,34 @@ import { ExpenseItem } from 'src/app/entities/expense-item';
   styleUrls: ['./expenses-list.component.scss']
 })
 export class ExpensesListComponent implements OnInit {
-
   expenseItems: ExpenseItem[];
+
+  firstItemDisplayedIndex = 0;
+  numberOfItemsDisplayed = 5;
 
   constructor(
     private expensesService: ExpensesService
   ) {}
 
   ngOnInit() {
-    this.expensesService.getAllExpenses()
+    this.expensesService
+      .getExpenseItemsFromTo(
+          this.firstItemDisplayedIndex,
+          this.firstItemDisplayedIndex + this.numberOfItemsDisplayed
+      )
       .subscribe((data) => {
         this.expenseItems = data.items;
       });
+  }
+
+  goToNextPage() {
+    this.firstItemDisplayedIndex += this.numberOfItemsDisplayed;
+    this.ngOnInit();
+  }
+
+  goToPreviousPage() {
+    this.firstItemDisplayedIndex -= this.numberOfItemsDisplayed;
+    this.ngOnInit();
   }
 
 }

@@ -14,11 +14,11 @@ export class ExpensesService {
     private http: HttpClient
   ) { }
 
-  getAllExpenses(): Observable<any> {
+  getAllExpenseItems(): Observable<any> {
     return this.http.get(this.url);
   }
 
-  getAllExpensesFromTo(start: number, end: number): Observable<any> {
+  getExpenseItemsFromTo(start: number, end: number): Observable<any> {
     return this.http.get(`${this.url}?offset=${start}&limit=${end - start}`);
   }
 }

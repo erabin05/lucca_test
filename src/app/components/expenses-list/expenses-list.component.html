@@ -5,3 +5,14 @@
   >
   </app-expense-item>
 </ul>
+<button
+  *ngIf="firstItemDisplayedIndex > 0"
+  (click)="goToPreviousPage()"
+>
+  previous
+</button>
+<button
+  (click)="goToNextPage()"
+>
+  next
+</button>
