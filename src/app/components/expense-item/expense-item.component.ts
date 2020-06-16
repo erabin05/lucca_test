@@ -8,6 +8,7 @@ import { ExpenseItem } from 'src/app/entities/expense-item';
 })
 export class ExpenseItemComponent implements OnInit {
   @Input() expenseItem: ExpenseItem;
+  @Input() index: number;
 
   constructor() { }
 

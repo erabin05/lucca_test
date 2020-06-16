@@ -1,14 +1,16 @@
-<li>
+<li
+  class='expense-item-line'
+>
   <section>
       {{ expenseItem.purchasedOn }}
   </section>
   <section>
       {{ expenseItem.nature }}
   </section>
-  <section>
+  <section class='amount'>
       {{ expenseItem.originalAmount | displayAmount }}
   </section>
-  <section>
+  <section class='amount'>
       {{ expenseItem.convertedAmount | displayAmount }}
   </section>
 </li>

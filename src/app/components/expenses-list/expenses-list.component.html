@@ -1,18 +1,23 @@
-<ul>
-  <app-expense-item
-    *ngFor="let expenseItem of expenseItems"
-    [expenseItem]="expenseItem"
+<section class="expenses-list">
+  <ul>
+    <app-expense-item
+      *ngFor="let expenseItem of expenseItems; let i = index"
+      [expenseItem]="expenseItem"
+      [index]="i"
+    >
+    </app-expense-item>
+  </ul>
+  <button
+    *ngIf="firstItemDisplayedIndex > 0"
+    (click)="goToPreviousPage()"
   >
-  </app-expense-item>
-</ul>
-<button
-  *ngIf="firstItemDisplayedIndex > 0"
-  (click)="goToPreviousPage()"
->
   previous
-</button>
-<button
-  (click)="goToNextPage()"
->
-  next
-</button>
+  </button>
+  <button
+    *ngIf="expenseItemsCount > firstItemDisplayedIndex + numberOfItemsDisplayed"
+    (click)="goToNextPage()"
+  >
+    next
+  </button>
+</section>
+

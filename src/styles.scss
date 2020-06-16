@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'colors.scss';
+
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  color : $dark-grey;
+}
+body {
+  margin : 0;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+
