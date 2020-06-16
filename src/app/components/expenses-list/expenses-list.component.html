@@ -1,1 +1,7 @@
-<p>expenses-list works!</p>
+<ul>
+  <app-expense-item
+    *ngFor="let expenseItem of expenseItems"
+    [expenseItem]="expenseItem"
+  >
+  </app-expense-item>
+</ul>
