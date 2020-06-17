@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ExpenseItemLineComponent } from './components/expense-item-line/expense-item-line.component';
 import { DisplayAmountPipe } from './pipes/display-amount.pipe';
 import { ExpenseItemAsideComponent } from './components/expense-item-aside/expense-item-aside.component';
+import { SelectItemDirective } from './components/expense-item-line/directives/select-item.directive';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ExpenseItemAsideComponent } from './components/expense-item-aside/expen
     ExpensesListComponent,
     ExpenseItemLineComponent,
     DisplayAmountPipe,
-    ExpenseItemAsideComponent
+    ExpenseItemAsideComponent,
+    SelectItemDirective
   ],
   imports: [
     BrowserModule,
