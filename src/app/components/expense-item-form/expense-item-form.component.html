@@ -1,6 +1,53 @@
-<form [formGroup]="expenseItemForm" (ngSubmit)="submitForm()">
-    <label for="nature">Nature</label>
-    <input type="text" formControlName="nature"/>
+<form
+  class="expense-item-form"
+  [formGroup]="expenseItemForm"
+  (ngSubmit)="submitForm()"
+>
+    <div>
+      <label for="date">Date</label>
+      <input
+        id="date"
+        type="date"
+        formControlName="purchasedOn"
+      />
+    </div>
+
+    <div>
+      <label for="nature">Nature</label>
+      <input
+        id="nature"
+        type="text"
+        formControlName="nature"
+      />
+    </div>
+
+    <div class="amount-form">
+        <div>
+            <label for="amount">Montant</label>
+            <input
+              id="amount"
+              type="number"
+              placeholder="0"
+              formControlName="originalAmount"
+            />
+        </div>
+        <div>
+            <label for="currency">Devise</label>
+            <select
+              id="curency"
+              formControlName="originalAmountCurrency"
+            >
+                <option>EUR</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div>
+      <label for="comment">Commentaire</label>
+      <input id="comment" type="text"/>
+    </div>
+
 
 
   <button type="submit" [disabled]='expenseItemForm.invalid'>valider</button>

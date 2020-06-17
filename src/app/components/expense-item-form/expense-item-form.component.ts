@@ -12,20 +12,16 @@ export class ExpenseItemFormComponent implements OnInit {
   expenseItemForm: FormGroup;
   expenseItem = new ExpenseItem();
 
-  // initialItemForm = {
-  //   nature : ''
-  // }
-
   constructor(
     private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
-    this.expenseItemForm = this.formBuilder.group(this.expenseItem);
+    this.expenseItemForm = this.formBuilder.group(this.expenseItem.form());
   }
 
   submitForm() {
-    console.log('coucou')
+    console.log(this.expenseItemForm.value);
   }
 
 }

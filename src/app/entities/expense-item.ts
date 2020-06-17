@@ -26,4 +26,26 @@ export class ExpenseItem {
     this.originalAmount = new Amount();
     this.convertedAmount = new Amount();
   }
+
+  form(expenseItem?: ExpenseItem): object {
+
+    if (expenseItem) {
+      return {
+        purchasedOn: expenseItem.purchasedOn,
+        nature: expenseItem.nature,
+        originalAmount: expenseItem.originalAmount.amount,
+        originalAmountCurrency: expenseItem.originalAmount.currency,
+        comment: expenseItem.comment
+      };
+    } else {
+      return {
+        purchasedOn: this.purchasedOn,
+        nature: this.nature,
+        originalAmount: this.originalAmount.amount,
+        originalAmountCurrency: this.originalAmount.currency,
+        comment: ''
+      };
+    }
+
+  }
 }

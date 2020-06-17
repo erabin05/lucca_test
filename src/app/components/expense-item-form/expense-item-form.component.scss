@@ -1,0 +1,28 @@
+.expense-item-form {
+  div {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0 10px 0;
+    label {
+      font-weight: 300;
+      font-size: 0.8rem;
+    }
+    input, select {
+      border: none;
+      border-bottom: solid 1px;
+      background: none;
+      font-size: 1em;
+      padding: 5px;
+      &:focus {
+        outline: none;
+      }
+    }
+    select {
+      margin-left: 10px;
+      padding: 4px
+    }
+  }
+  .amount-form {
+    flex-direction: row;
+  }
+}
