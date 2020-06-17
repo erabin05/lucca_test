@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ExpensesService } from 'src/app/services/expenses.service';
 import { ExpenseItem } from 'src/app/entities/expense-item';
+import { SelectedExpenseItemService } from 'src/app/services/selected-expense-item.service';
 
 @Component({
   selector: 'app-expenses-list',
@@ -15,13 +16,17 @@ export class ExpensesListComponent implements OnInit {
   numberOfItemsDisplayed = 12;
 
   constructor(
-    private expensesService: ExpensesService
+    private expensesService: ExpensesService,
+    private selectedExpenseItemService: SelectedExpenseItemService
   ) {}
 
   ngOnInit() {
     this.getExpenseItemsToDisplay();
     this.expensesService.getCountOfAllExpenseItems()
-      .subscribe((data) => this.expenseItemsCount = data);
+      .subscribe((data) => {
+        this.expenseItemsCount = data;
+      });
+
   }
 
   getExpenseItemsToDisplay() {
@@ -32,6 +37,7 @@ export class ExpensesListComponent implements OnInit {
       )
       .subscribe((data) => {
         this.expenseItems = data;
+        this.selectedExpenseItemService.update(data[0]);
       });
   }
 
@@ -44,5 +50,4 @@ export class ExpensesListComponent implements OnInit {
     this.firstItemDisplayedIndex -= this.numberOfItemsDisplayed;
     this.getExpenseItemsToDisplay();
   }
-
 }
