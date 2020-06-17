@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ExpensesService } from 'src/app/services/expenses.service';
 import { ExpenseItem } from 'src/app/entities/expense-item';
-import { SelectedExpenseItemService } from 'src/app/services/selected-expense-item.service';
 
 @Component({
   selector: 'app-expenses-list',
@@ -16,8 +15,7 @@ export class ExpensesListComponent implements OnInit {
   numberOfItemsDisplayed = 12;
 
   constructor(
-    private expensesService: ExpensesService,
-    private selectedExpenseItemService: SelectedExpenseItemService
+    private expensesService: ExpensesService
   ) {}
 
   ngOnInit() {

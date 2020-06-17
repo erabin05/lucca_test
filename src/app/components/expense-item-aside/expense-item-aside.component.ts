@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectedExpenseItemService } from 'src/app/services/selected-expense-item.service';
 import { ExpenseItem } from 'src/app/entities/expense-item';
+import { ExpensesService } from 'src/app/services/expenses.service';
 
 @Component({
   selector: 'app-expense-item-aside',
@@ -11,11 +11,11 @@ export class ExpenseItemAsideComponent implements OnInit {
   expenseItem: ExpenseItem;
 
   constructor(
-    private selectedExpenseItemService: SelectedExpenseItemService
+    private expensesService: ExpensesService
   ) { }
 
   ngOnInit() {
-    this.selectedExpenseItemService.get()
+    this.expensesService.getSelectedExpenseItem()
       .subscribe((data: ExpenseItem) => {
         this.expenseItem = data;
       });

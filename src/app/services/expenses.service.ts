@@ -10,6 +10,8 @@ import { ExpenseItem } from '../entities/expense-item';
 export class ExpensesService {
 
   private expenseItemsSubject = new Subject<ExpenseItem[]>();
+  private expenseItems: ExpenseItem[];
+  private selectedExpenseItemSubject = new Subject<ExpenseItem>();
   private url = '/api/expenseItems';
 
   constructor(
@@ -27,12 +29,27 @@ export class ExpensesService {
         this.http
           .get(`${this.url}?offset=${start}&limit=${end - start}`)
           .subscribe((data: any) => {
-            this.expenseItemsSubject.next(data.items);
+            this.expenseItemsSubject.next(
+              data.items.map((item, i) => ({ ...item, selected : i === 0}))
+            );
+            this.selectedExpenseItemSubject.next(data.items[0]);
+            this.expenseItems = data.items;
           });
   }
 
   getExpenseItems(): Observable<ExpenseItem[]> {
     return this.expenseItemsSubject.asObservable();
+  }
+
+  selectExpenseItem(selectedExpenseItem: ExpenseItem): void {
+    this.selectedExpenseItemSubject.next(selectedExpenseItem);
+    this.expenseItemsSubject.next(
+      this.expenseItems.map(item => ({ ...item, selected: selectedExpenseItem.id === item.id}))
+    );
+  }
+
+  getSelectedExpenseItem(): Observable<ExpenseItem> {
+    return this.selectedExpenseItemSubject.asObservable();
   }
 
 }
