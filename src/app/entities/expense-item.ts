@@ -12,4 +12,5 @@ export class ExpenseItem {
   comment?: string;
   createdAt: string;
   lastModifiedAt: string;
+  selected?: boolean;
 }

@@ -31,14 +31,15 @@ export class ExpensesListComponent implements OnInit {
 
   getExpenseItemsToDisplay() {
     this.expensesService
-      .getExpenseItemsFromTo(
+      .getExpenseItems()
+      .subscribe((data: ExpenseItem[]) => {
+        this.expenseItems = data;
+      });
+    this.expensesService
+      .loadExpenseItemsFromTo(
           this.firstItemDisplayedIndex,
           this.firstItemDisplayedIndex + this.numberOfItemsDisplayed
-      )
-      .subscribe((data) => {
-        this.expenseItems = data;
-        this.selectedExpenseItemService.update(data[0]);
-      });
+      );
   }
 
   goToNextPage() {

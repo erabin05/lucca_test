@@ -1,12 +1,13 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, HostBinding } from '@angular/core';
 import { SelectedExpenseItemService } from 'src/app/services/selected-expense-item.service';
 import { ExpenseItem } from 'src/app/entities/expense-item';
+import { map } from 'rxjs/operators';
 
 @Directive({
   selector: '[appSelectItem]'
 })
 export class SelectItemDirective {
-  @Input('appSelectItem') selectedItem: ExpenseItem;
+  @Input('appSelectItem') currentItem: ExpenseItem;
 
   constructor(
     private selectedExpenseItemService: SelectedExpenseItemService,
@@ -14,7 +15,7 @@ export class SelectItemDirective {
   ) { }
 
   @HostListener('click') select() {
-    this.selectedExpenseItemService.update(this.selectedItem);
+    this.selectedExpenseItemService.update(this.currentItem);
   }
 
 }
