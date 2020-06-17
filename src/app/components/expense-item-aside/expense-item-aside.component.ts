@@ -17,7 +17,6 @@ export class ExpenseItemAsideComponent implements OnInit {
   ngOnInit() {
     this.selectedExpenseItemService.get()
       .subscribe((data: ExpenseItem) => {
-        console.log(data);
         this.expenseItem = data;
       });
   }

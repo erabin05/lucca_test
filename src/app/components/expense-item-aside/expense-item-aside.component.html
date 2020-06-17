@@ -1,3 +1,19 @@
-<aside class="expense-item-aside">
-  coucou
+<aside
+  class="expense-item-aside"
+  *ngIf="expenseItem"
+>
+  <label>Date</label>
+  <p>{{expenseItem.purchasedOn}}</p>
+  <label>Nature</label>
+  <p>{{expenseItem.nature}}</p>
+  <label>Montant</label>
+  <p>{{expenseItem.originalAmount | displayAmount}}</p>
+  <label>Montant converti en euro</label>
+  <p>{{expenseItem.convertedAmount | displayAmount}}</p>
+  <label>Commentaire</label>
+  <p>{{expenseItem.comment}}</p>
+  <label>Crée le</label>
+  <p>{{expenseItem.createdAt}}</p>
+  <label>Modifié le</label>
+  <p>{{expenseItem.lastModifiedAt}}</p>
 </aside>
