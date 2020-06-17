@@ -9,7 +9,7 @@ export class Amount {
 }
 
 export class ExpenseItem {
-  id: string;
+  id?: string;
   purchasedOn: string;
   nature: string;
   originalAmount: Amount;
@@ -27,8 +27,7 @@ export class ExpenseItem {
     this.convertedAmount = new Amount();
   }
 
-  form(expenseItem?: ExpenseItem): object {
-
+  form?(expenseItem?: ExpenseItem): object {
     if (expenseItem) {
       return {
         purchasedOn: expenseItem.purchasedOn,
@@ -46,6 +45,19 @@ export class ExpenseItem {
         comment: ''
       };
     }
-
   }
+
+  submitForm?(newExpenseForm): ExpenseItem {
+    return {
+      purchasedOn: newExpenseForm.purchasedOn,
+      nature: newExpenseForm.nature,
+      originalAmount: {
+        amount: newExpenseForm.originalAmount,
+        currency: newExpenseForm.originalAmountCurrency
+      },
+      convertedAmount: new Amount(),
+      comment: newExpenseForm.comment
+    };
+  }
+
 }

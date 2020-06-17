@@ -52,4 +52,10 @@ export class ExpensesService {
     return this.selectedExpenseItemSubject.asObservable();
   }
 
+  postExpenseItem(newExpenseItem: ExpenseItem): void {
+    console.log(newExpenseItem);
+    this.http.post(this.url, newExpenseItem).subscribe((data) => console.log(data));
+  }
+
+
 }

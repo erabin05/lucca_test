@@ -37,7 +37,7 @@
               id="curency"
               formControlName="originalAmountCurrency"
             >
-                <option>EUR</option>
+                <option value="EUR">EUR</option>
             </select>
         </div>
     </div>
@@ -45,7 +45,11 @@
 
     <div>
       <label for="comment">Commentaire</label>
-      <input id="comment" type="text"/>
+      <input
+        id="comment"
+        type="text"
+        formControlName="comment"
+        />
     </div>
 
 
