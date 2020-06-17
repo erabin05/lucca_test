@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   template: `
     <main>
       <app-expenses-list></app-expenses-list>
-      <app-expense-item-aside></app-expense-item-aside>
+      <app-expense-item-form></app-expense-item-form>
     </main>
   `
 })

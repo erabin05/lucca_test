@@ -8,6 +8,8 @@ import { ExpenseItemLineComponent } from './components/expense-item-line/expense
 import { DisplayAmountPipe } from './pipes/display-amount.pipe';
 import { ExpenseItemAsideComponent } from './components/expense-item-aside/expense-item-aside.component';
 import { SelectItemDirective } from './components/expense-item-line/directives/select-item.directive';
+import { ExpenseItemFormComponent } from './components/expense-item-form/expense-item-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,14 @@ import { SelectItemDirective } from './components/expense-item-line/directives/s
     ExpenseItemLineComponent,
     DisplayAmountPipe,
     ExpenseItemAsideComponent,
-    SelectItemDirective
+    SelectItemDirective,
+    ExpenseItemFormComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

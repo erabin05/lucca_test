@@ -1,0 +1,8 @@
+<form [formGroup]="expenseItemForm" (ngSubmit)="submitForm()">
+    <label for="nature">Nature</label>
+    <input type="text" formControlName="nature"/>
+
+
+  <button type="submit" [disabled]='expenseItemForm.invalid'>valider</button>
+
+</form>
