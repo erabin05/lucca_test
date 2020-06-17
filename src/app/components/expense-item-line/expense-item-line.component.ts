@@ -2,11 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ExpenseItem } from 'src/app/entities/expense-item';
 
 @Component({
-  selector: 'app-expense-item',
-  templateUrl: './expense-item.component.html',
-  styleUrls: ['./expense-item.component.scss']
+  selector: 'app-expense-item-line',
+  templateUrl: './expense-item-line.component.html',
+  styleUrls: ['./expense-item-line.component.scss']
 })
-export class ExpenseItemComponent implements OnInit {
+export class ExpenseItemLineComponent implements OnInit {
   @Input() expenseItem: ExpenseItem;
   @Input() index: number;
 

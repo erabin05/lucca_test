@@ -1,11 +1,11 @@
 <section class="expenses-list">
   <ul>
-    <app-expense-item
+    <app-expense-item-line
       *ngFor="let expenseItem of expenseItems; let i = index"
       [expenseItem]="expenseItem"
       [index]="i"
     >
-    </app-expense-item>
+    </app-expense-item-line>
   </ul>
   <button
     *ngIf="firstItemDisplayedIndex > 0"
