@@ -10,6 +10,7 @@ import { ExpenseItemAsideComponent } from './components/expense-item-aside/expen
 import { SelectItemDirective } from './components/expense-item-line/directives/select-item.directive';
 import { ExpenseItemFormComponent } from './components/expense-item-form/expense-item-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Amount } from './entities/expense-item';
 
 @NgModule({
   declarations: [

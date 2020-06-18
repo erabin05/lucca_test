@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ExpenseItem, ExpenseItemForm } from 'src/app/entities/expense-item';
 import { ExpensesService } from 'src/app/services/expenses.service';
+import { CurrencyRateService } from 'src/app/services/currency-rate.service';
 
 @Component({
   selector: 'app-expense-item-form',
@@ -10,8 +11,8 @@ import { ExpensesService } from 'src/app/services/expenses.service';
 })
 export class ExpenseItemFormComponent implements OnInit {
 
-  expenseItemForm: FormGroup;
-  expenseItem = new ExpenseItem();
+  expenseItemFormGroup: FormGroup;
+  expenseItem = new ExpenseItemForm();
   nonOptionalInputs = [
     'purchasedOn',
     'nature',
@@ -21,17 +22,18 @@ export class ExpenseItemFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private expensesService: ExpensesService
+    private expensesService: ExpensesService,
+    public currencyRateService: CurrencyRateService
   ) { }
 
   ngOnInit() {
-    this.expenseItemForm = this.formBuilder.group(this.expenseItem.form());
+    this.expenseItemFormGroup = this.formBuilder.group(this.expenseItem);
   }
 
   submitForm() {
-    if (this.isInputsfilled(this.nonOptionalInputs, this.expenseItemForm.value)) {
+    if (this.isInputsfilled(this.nonOptionalInputs, this.expenseItemFormGroup.value)) {
       this.expensesService
-      .postExpenseItem(this.expenseItem.submitForm(this.expenseItemForm.value));
+      .postExpenseItem(this.expenseItem.toExpenseItem(this.expenseItemFormGroup));
     } else {
       throw new Error(`Fill in the requiered fields : ${this.nonOptionalInputs.reduce((acc, value) => acc + ' ' + value, '')}`);
     }
