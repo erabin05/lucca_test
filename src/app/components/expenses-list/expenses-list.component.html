@@ -8,16 +8,15 @@
     </app-expense-item-line>
   </ul>
   <button
-    *ngIf="firstItemDisplayedIndex > 0"
-    (click)="goToPreviousPage()"
+  *ngIf="!paginationService.isFirstPage()"
+    appPageButton="PREVIOUS"
   >
-  previous
+    Précédents
   </button>
   <button
-    *ngIf="expenseItemsCount > firstItemDisplayedIndex + numberOfItemsDisplayed"
-    (click)="goToNextPage()"
+    appPageButton="NEXT"
   >
-    next
+    Prochains
   </button>
 </section>
 

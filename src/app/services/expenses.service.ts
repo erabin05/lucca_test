@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
 import { Observable, Subject } from 'rxjs';
 import { ExpenseItem, ExpenseItemForm } from '../entities/expense-item';
+import { PaginationService } from './pagination.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,15 +18,9 @@ export class ExpensesService {
   private url = '/api/expenseItems';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private paginationService: PaginationService
   ) { }
-
-  getCountOfAllExpenseItems(): Observable<number> {
-    return this.http.get(this.url)
-              .pipe(
-                map((data: any) => data.count)
-              );
-  }
 
   loadExpenseItemsFromTo(start: number, end: number): void {
         this.http
@@ -37,6 +32,20 @@ export class ExpensesService {
             this.selectedExpenseItemSubject.next(data.items[0]);
             this.expenseItems = data.items;
           });
+  }
+
+  loadExpenseItemsInPage(): void {
+    this.paginationService.getPagination().subscribe((currentP: any) => {
+      this.http
+        .get(`${this.url}?offset=${currentP.firstItemDisplayedIndex}&limit=${currentP.numberOfItemsDisplayed}`)
+        .subscribe((data: any) => {
+          this.expenseItemsSubject.next(
+            data.items.map((item, i) => ({ ...item, selected : i === 0}))
+          );
+          this.selectedExpenseItemSubject.next(data.items[0]);
+          this.expenseItems = data.items;
+      });
+    });
   }
 
   getExpenseItems(): Observable<ExpenseItem[]> {
@@ -64,7 +73,7 @@ export class ExpensesService {
 
   putExpenseItem(updatedExpenseItemForm: ExpenseItemForm): Observable<any> {
     if (this.isRequieredFieldFilled(updatedExpenseItemForm)) {
-      return this.http.put(`${this.url}/${updatedExpenseItemForm.id}`, updatedExpenseItemForm.toExpenseItem())
+      return this.http.put(`${this.url}/${updatedExpenseItemForm.id}`, updatedExpenseItemForm.toExpenseItem());
     } else {
       return throwError(new Error (`Fill in the requiered fields`));
     }

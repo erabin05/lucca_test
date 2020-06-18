@@ -14,6 +14,7 @@ import { Amount } from './entities/expense-item';
 import { AsideComponent } from './components/aside/aside.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ButtonDirective } from './components/aside/directives/button.directive';
+import { PageButtonDirective } from './components/expenses-list/directives/page-button.directive';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ButtonDirective } from './components/aside/directives/button.directive'
     ExpenseItemFormComponent,
     AsideComponent,
     HeaderComponent,
-    ButtonDirective
+    ButtonDirective,
+    PageButtonDirective
   ],
   imports: [
     BrowserModule,

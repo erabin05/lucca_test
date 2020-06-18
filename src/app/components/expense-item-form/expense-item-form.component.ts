@@ -42,6 +42,7 @@ export class ExpenseItemFormComponent implements OnInit {
         .postExpenseItem(this.expenseItemFormGroup.value)
         .subscribe(res => console.log(res));
     }
+    this.asideStatusService.toSEE();
   }
 
   initiateExpenseItemForm() {
