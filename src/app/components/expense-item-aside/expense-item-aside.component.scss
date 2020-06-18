@@ -1,8 +1,17 @@
 .expense-item-aside {
   width: 100%;
-  height: 100%;
+  height: 90%;
+  padding: 40px;
   label {
     font-weight: 300;
     font-size: 0.8rem;
+  }
+  .amount {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    div {
+      margin-right: 40px;
+    }
   }
 }

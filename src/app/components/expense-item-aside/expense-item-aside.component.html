@@ -1,4 +1,4 @@
-<aside
+<div
   class="expense-item-aside"
   *ngIf="expenseItem"
 >
@@ -6,14 +6,24 @@
   <p>{{expenseItem.purchasedOn}}</p>
   <label>Nature</label>
   <p>{{expenseItem.nature}}</p>
-  <label>Montant</label>
-  <p>{{expenseItem.originalAmount | displayAmount}}</p>
-  <label>Montant converti en euro</label>
-  <p>{{expenseItem.convertedAmount | displayAmount}}</p>
+  <div class="amount">
+      <div>
+        <label>Montant</label>
+        <p>{{expenseItem.originalAmount | displayAmount}}</p>
+      </div>
+      <div>
+        <label>Montant en euro</label>
+        <p>{{expenseItem.convertedAmount | displayAmount}}</p>
+      </div>
+  </div>
   <label>Commentaire</label>
   <p>{{expenseItem.comment}}</p>
   <label>Crée le</label>
   <p>{{expenseItem.createdAt}}</p>
   <label>Modifié le</label>
   <p>{{expenseItem.lastModifiedAt}}</p>
-</aside>
+  <div class="buttons">
+    <button>Modifer</button>
+    <button>Supprimer</button>
+  </div>
+</div>

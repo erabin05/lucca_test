@@ -11,11 +11,18 @@
   .amount {
     max-width: 120px;
   }
+  &:hover{
+    cursor: pointer;
+    background: $light-grey;
+  }
 }
 
 .selected {
   background: $yellow;
   section {
     color: $white
+  }
+  &:hover{
+    background: $yellow;
   }
 }
