@@ -27,7 +27,7 @@ export class ExpenseItem {
     this.convertedAmount = new Amount();
   }
 
-  form?(expenseItem?: ExpenseItem): object {
+  form?(expenseItem?: ExpenseItem): ExpenseItemForm {
     if (expenseItem) {
       return {
         purchasedOn: expenseItem.purchasedOn,
@@ -47,7 +47,7 @@ export class ExpenseItem {
     }
   }
 
-  submitForm?(newExpenseForm): ExpenseItem {
+  submitForm?(newExpenseForm: ExpenseItemForm): ExpenseItem {
     return {
       purchasedOn: newExpenseForm.purchasedOn,
       nature: newExpenseForm.nature,
@@ -60,4 +60,12 @@ export class ExpenseItem {
     };
   }
 
+}
+
+export class ExpenseItemForm {
+  purchasedOn: string;
+  nature: string;
+  originalAmount: number;
+  originalAmountCurrency: string;
+  comment?: string;
 }
