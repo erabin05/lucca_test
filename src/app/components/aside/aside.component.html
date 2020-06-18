@@ -1,6 +1,7 @@
 <aside>
   <app-expense-item-aside *ngIf="status === SEE"></app-expense-item-aside>
   <app-expense-item-form *ngIf="status === CREATE"></app-expense-item-form>
+  <app-expense-item-form *ngIf="status === MODIFIE" [toUpdate]="true"></app-expense-item-form>
   <div class="buttons">
       <button
         [appButton]="CREATE"

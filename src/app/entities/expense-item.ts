@@ -65,24 +65,16 @@ export class ExpenseItemForm {
     }
   }
 
-  toExpenseItem(newExpenseForm: FormGroup): ExpenseItem {
-    const {
-      purchasedOn,
-      nature,
-      originalAmount,
-      originalAmountCurrency,
-      comment
-    } = newExpenseForm.value;
-
+  toExpenseItem(): ExpenseItem {
     return {
-      purchasedOn,
-      nature,
+      purchasedOn: this.purchasedOn,
+      nature: this.nature,
       originalAmount: {
-        amount: originalAmount,
-        currency: originalAmountCurrency
+        amount: this.originalAmount,
+        currency: this.originalAmountCurrency
       },
       convertedAmount: new Amount(),
-      comment
+      comment: this.comment
     };
 
   }

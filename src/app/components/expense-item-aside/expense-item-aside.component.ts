@@ -20,5 +20,4 @@ export class ExpenseItemAsideComponent implements OnInit {
         this.expenseItem = data;
       });
   }
-
 }
