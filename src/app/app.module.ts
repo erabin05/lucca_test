@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Amount } from './entities/expense-item';
 import { AsideComponent } from './components/aside/aside.component';
 import { HeaderComponent } from './components/header/header.component';
+import { ButtonDirective } from './components/aside/directives/button.directive';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HeaderComponent } from './components/header/header.component';
     SelectItemDirective,
     ExpenseItemFormComponent,
     AsideComponent,
-    HeaderComponent
+    HeaderComponent,
+    ButtonDirective
   ],
   imports: [
     BrowserModule,

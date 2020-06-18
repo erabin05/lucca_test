@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AsideStatusService } from 'src/app/services/aside-status.service';
 
 @Component({
   selector: 'app-aside',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AsideComponent implements OnInit {
 
-  constructor() { }
+
+  status: string;
+  SEE = this.asideStatusService.SEE;
+  CREATE = this.asideStatusService.CREATE;
+  MODIFIE = this.asideStatusService.MODIFIE;
+
+
+  constructor(
+    private asideStatusService: AsideStatusService
+  ) { }
 
   ngOnInit() {
+    this.asideStatusService.get().subscribe(status => this.status = status);
   }
-
 }
