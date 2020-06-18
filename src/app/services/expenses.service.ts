@@ -62,6 +62,14 @@ export class ExpensesService {
     }
   }
 
+  putExpenseItem(updatedExpenseItemForm: ExpenseItemForm): Observable<any> {
+    if (this.isRequieredFieldFilled(updatedExpenseItemForm)) {
+      return this.http.put(`${this.url}/${updatedExpenseItemForm.id}`, updatedExpenseItemForm.toExpenseItem())
+    } else {
+      return throwError(new Error (`Fill in the requiered fields`));
+    }
+  }
+
   isRequieredFieldFilled(expenseItemForm: ExpenseItemForm): boolean {
     const nonOptionalInputs = [
       'purchasedOn',

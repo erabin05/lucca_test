@@ -35,6 +35,7 @@ export class ExpenseItem {
 }
 
 export class ExpenseItemForm {
+  id?: string;
   purchasedOn: string;
   nature: string;
   originalAmount: number;
@@ -46,6 +47,7 @@ export class ExpenseItemForm {
   ) {
     if (expenseItem) {
       return {
+        id: expenseItem.id,
         purchasedOn: expenseItem.purchasedOn,
         nature: expenseItem.nature,
         originalAmount: expenseItem.originalAmount.amount,

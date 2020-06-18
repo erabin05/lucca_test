@@ -34,7 +34,9 @@ export class ExpenseItemFormComponent implements OnInit {
 
   submitForm() {
     if (this.toUpdate) {
-      // expenseService.put()
+      this.expensesService
+        .putExpenseItem(this.expenseItemFormGroup.value)
+        .subscribe(res => console.log(res));
     } else {
       this.expensesService
         .postExpenseItem(this.expenseItemFormGroup.value)
