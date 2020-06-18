@@ -11,7 +11,7 @@ import { AsideStatusService } from 'src/app/services/aside-status.service';
   styleUrls: ['./expense-item-form.component.scss']
 })
 export class ExpenseItemFormComponent implements OnInit {
-  @Input() toUpdate: boolean;
+  @Input() toUpdate?: boolean;
 
   expenseItemFormGroup: FormGroup;
   expenseItem = new ExpenseItemForm();
@@ -29,12 +29,26 @@ export class ExpenseItemFormComponent implements OnInit {
 
   ngOnInit() {
     this.expenseItemFormGroup = this.formBuilder.group(this.expenseItem);
+    this.initiateExpenseItemForm();
   }
 
   submitForm() {
+    if (this.toUpdate) {
+      // expenseService.put()
+    } else {
       this.expensesService
         .postExpenseItem(this.expenseItemFormGroup.value)
         .subscribe(res => console.log(res));
+    }
+  }
+
+  initiateExpenseItemForm() {
+    if (this.toUpdate) {
+      this.expensesService.getSelectedExpenseItem().subscribe((item) => {
+        this.expenseItem = new ExpenseItemForm(item);
+        this.expenseItemFormGroup = this.formBuilder.group(this.expenseItem);
+      });
+    }
   }
 
 }

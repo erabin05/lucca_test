@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { throwError, BehaviorSubject } from 'rxjs';
 import { Observable, Subject } from 'rxjs';
 import { ExpenseItem, ExpenseItemForm } from '../entities/expense-item';
-import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,8 @@ export class ExpensesService {
 
   private expenseItemsSubject = new Subject<ExpenseItem[]>();
   private expenseItems: ExpenseItem[];
-  private selectedExpenseItemSubject = new Subject<ExpenseItem>();
+  private initialSelectedItem = new ExpenseItem();
+  private selectedExpenseItemSubject = new BehaviorSubject<ExpenseItem>(this.initialSelectedItem);
   private url = '/api/expenseItems';
 
   constructor(
@@ -54,14 +54,13 @@ export class ExpensesService {
     return this.selectedExpenseItemSubject.asObservable();
   }
 
-  postExpenseItem(newExpenseItem: ExpenseItemForm): Observable<any> {
-    if (this.isRequieredFieldFilled(newExpenseItem)) {
-      return this.http.post(this.url, newExpenseItem.toExpenseItem());
+  postExpenseItem(newExpenseItemForm: ExpenseItemForm): Observable<any> {
+    if (this.isRequieredFieldFilled(newExpenseItemForm)) {
+      return this.http.post(this.url, newExpenseItemForm.toExpenseItem());
     } else {
       return throwError(new Error (`Fill in the requiered fields`));
     }
   }
-
 
   isRequieredFieldFilled(expenseItemForm: ExpenseItemForm): boolean {
     const nonOptionalInputs = [
@@ -78,6 +77,4 @@ export class ExpensesService {
         return expenseItemForm[controlName];
       }).length ===  nonOptionalInputs.length;
   }
-
-
 }

@@ -23,5 +23,8 @@ export class ButtonDirective {
     if (this.status === this.CREATE) {
       this.asideStatusService.toCREATE();
     }
+    if (this.status === this.MODIFIE) {
+      this.asideStatusService.toMODIFIE();
+    }
   }
 }
