@@ -12,7 +12,7 @@ export class ExpensesListComponent implements OnInit {
   expenseItemsCount: number;
 
   firstItemDisplayedIndex = 0;
-  numberOfItemsDisplayed = 12;
+  numberOfItemsDisplayed = 10;
 
   constructor(
     private expensesService: ExpensesService

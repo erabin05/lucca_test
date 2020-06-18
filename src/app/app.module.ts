@@ -11,6 +11,8 @@ import { SelectItemDirective } from './components/expense-item-line/directives/s
 import { ExpenseItemFormComponent } from './components/expense-item-form/expense-item-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Amount } from './entities/expense-item';
+import { AsideComponent } from './components/aside/aside.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { Amount } from './entities/expense-item';
     DisplayAmountPipe,
     ExpenseItemAsideComponent,
     SelectItemDirective,
-    ExpenseItemFormComponent
+    ExpenseItemFormComponent,
+    AsideComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
