@@ -34,11 +34,18 @@ export class ExpensesService {
       this.http
         .get(`${this.url}?offset=${currentP.firstItemDisplayedIndex}&limit=${currentP.numberOfItemsDisplayed}`)
         .subscribe((data: any) => {
-          this.expenseItemsSubject.next(
-            data.items.map((item, i) => ({ ...item, selected : i === 0}))
+          let selectionIndex;
+          this.passSelectedItem((selectedItem: ExpenseItem) => {
+              selectionIndex = data.items.reduce((acc, item, i) => selectedItem.id === item.id ? i : acc, 0);
+              this.expenseItemsSubject.next(
+                data.items.map((item, i) => {
+                  return { ...item, selected : i === selectionIndex};
+                })
+              );
+              this.expenseItems = data.items;
+            }
           );
-          this.selectedExpenseItemSubject.next(data.items[0]);
-          this.expenseItems = data.items;
+          this.selectedExpenseItemSubject.next(data.items[selectionIndex]);
       });
     });
   }
@@ -56,6 +63,13 @@ export class ExpensesService {
 
   getSelectedExpenseItem(): Observable<ExpenseItem> {
     return this.selectedExpenseItemSubject.asObservable();
+  }
+
+  passSelectedItem(method: (selectedItem: ExpenseItem) => void) {
+    this.getSelectedExpenseItem()
+        .subscribe((selectedItem) => {
+          method(selectedItem);
+        });
   }
 
   postExpenseItem(newExpenseItemForm: ExpenseItemForm): Observable<any> {

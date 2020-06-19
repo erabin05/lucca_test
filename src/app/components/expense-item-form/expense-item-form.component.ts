@@ -36,14 +36,19 @@ export class ExpenseItemFormComponent implements OnInit {
     if (this.toUpdate) {
       this.expensesService
         .putExpenseItem(this.expenseItemFormGroup.value)
-        .subscribe(res => console.log(res));
+        .subscribe(res => {
+          console.log(res);
+          this.expensesService.loadExpenseItemsInPage();
+        });
     } else {
       this.expensesService
         .postExpenseItem(this.expenseItemFormGroup.value)
-        .subscribe(res => console.log(res));
+        .subscribe(res => {
+          console.log(res);
+          this.expensesService.loadExpenseItemsInPage();
+        });
     }
     this.asideStatusService.toSEE();
-    this.expensesService.loadExpenseItemsInPage();
   }
 
   initiateExpenseItemForm() {
