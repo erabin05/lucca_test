@@ -11,7 +11,7 @@ import { PaginationService } from './pagination.service';
 })
 export class ExpensesService {
 
-  private expenseItemsSubject = new Subject<ExpenseItem[]>();
+  private expenseItemsSubject = new BehaviorSubject<ExpenseItem[]>([]);
   private expenseItems: ExpenseItem[];
   private initialSelectedItem = new ExpenseItem();
   private selectedExpenseItemSubject = new BehaviorSubject<ExpenseItem>(this.initialSelectedItem);

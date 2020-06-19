@@ -3,6 +3,7 @@ import { AsideStatusService } from 'src/app/services/aside-status.service';
 import { ExpensesService } from 'src/app/services/expenses.service';
 import { ExpenseItem } from 'src/app/entities/expense-item';
 import { PaginationService } from 'src/app/services/pagination.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Directive({
   selector: '[appButton]'
@@ -22,10 +23,13 @@ export class ButtonDirective implements OnInit {
   constructor(
     private asideStatusService: AsideStatusService,
     private expenseService: ExpensesService,
-    private paginationService: PaginationService
+    private paginationService: PaginationService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit() {
+
+
     this.expenseService
       .getSelectedExpenseItem()
       .subscribe((item) => {
@@ -61,6 +65,7 @@ export class ButtonDirective implements OnInit {
               if (this.expenseItems.length === 1) {
                 this.paginationService.goToPreviousPage();
               }
+              this.notificationService.newNotification('La dépense a été supprimée');
               this.expenseService.loadExpenseItemsInPage();
               this.expenseService.loadCountOfAllExpenseItems();
             });
