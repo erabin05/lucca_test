@@ -39,6 +39,7 @@ export class ExpenseItemFormComponent implements OnInit {
         .subscribe(res => {
           console.log(res);
           this.expensesService.loadExpenseItemsInPage();
+          this.expensesService.loadCountOfAllExpenseItems();
         });
     } else {
       this.expensesService
@@ -46,6 +47,7 @@ export class ExpenseItemFormComponent implements OnInit {
         .subscribe(res => {
           console.log(res);
           this.expensesService.loadExpenseItemsInPage();
+          this.expensesService.loadCountOfAllExpenseItems();
         });
     }
     this.asideStatusService.toSEE();

@@ -2,6 +2,7 @@ import { Directive, Input, HostListener, OnInit } from '@angular/core';
 import { AsideStatusService } from 'src/app/services/aside-status.service';
 import { ExpensesService } from 'src/app/services/expenses.service';
 import { ExpenseItem } from 'src/app/entities/expense-item';
+import { PaginationService } from 'src/app/services/pagination.service';
 
 @Directive({
   selector: '[appButton]'
@@ -16,10 +17,12 @@ export class ButtonDirective implements OnInit {
   MODIFIE = this.asideStatusService.MODIFIE;
 
   selectedExpenseItem: ExpenseItem;
+  expenseItems: ExpenseItem[];
 
   constructor(
     private asideStatusService: AsideStatusService,
-    private expenseService: ExpensesService
+    private expenseService: ExpensesService,
+    private paginationService: PaginationService
   ) { }
 
   ngOnInit() {
@@ -27,6 +30,11 @@ export class ButtonDirective implements OnInit {
       .getSelectedExpenseItem()
       .subscribe((item) => {
         this.selectedExpenseItem = item;
+      });
+    this.expenseService
+      .getExpenseItems()
+      .subscribe((expenseItems) => {
+        this.expenseItems = expenseItems;
       });
   }
 
@@ -49,8 +57,10 @@ export class ButtonDirective implements OnInit {
       case 'DELETE':
         this.expenseService
             .deleteExpense(this.selectedExpenseItem.id)
-            .subscribe();
-        this.expenseService.loadExpenseItemsInPage();
+            .subscribe(() => {
+              this.expenseService.loadExpenseItemsInPage();
+              this.expenseService.loadCountOfAllExpenseItems();
+            });
         break;
     }
   }

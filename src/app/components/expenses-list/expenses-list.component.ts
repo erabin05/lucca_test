@@ -19,18 +19,24 @@ export class ExpensesListComponent implements OnInit {
 
   ngOnInit() {
     this.getExpenseItemsToDisplay();
-    this.expensesService
-      .getCountOfAllExpenseItems()
-      .subscribe((count: number) => { this.expenseItemsCount = count; });
+    this.getCountofAllExpensesItem();
   }
 
   getExpenseItemsToDisplay() {
+    this.expensesService
+      .loadExpenseItemsInPage();
     this.expensesService
       .getExpenseItems()
       .subscribe((data: ExpenseItem[]) => {
         this.expenseItems = data;
       });
+  }
+
+  getCountofAllExpensesItem() {
     this.expensesService
-      .loadExpenseItemsInPage();
+      .loadCountOfAllExpenseItems();
+    this.expensesService
+      .getCountOfAllExpenseItems()
+      .subscribe((count: number) => { console.log(count); this.expenseItemsCount = count; });
   }
 }

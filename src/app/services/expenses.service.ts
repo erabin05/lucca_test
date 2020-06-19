@@ -15,6 +15,7 @@ export class ExpensesService {
   private expenseItems: ExpenseItem[];
   private initialSelectedItem = new ExpenseItem();
   private selectedExpenseItemSubject = new BehaviorSubject<ExpenseItem>(this.initialSelectedItem);
+  private countOfAllexpensesItem = new BehaviorSubject<number>(0);
   private url = '/api/expenseItems';
 
   constructor(
@@ -22,11 +23,17 @@ export class ExpensesService {
     private paginationService: PaginationService
   ) { }
 
+  loadCountOfAllExpenseItems(): void {
+    console.log('yo')
+    this.http
+          .get(this.url)
+          .subscribe((data: any) => {
+            this.countOfAllexpensesItem.next(data.count);
+          });
+  }
+
   getCountOfAllExpenseItems(): Observable<number> {
-    return this.http.get(this.url)
-              .pipe(
-                map((data: any) => data.count)
-              );
+    return this.countOfAllexpensesItem.asObservable();
   }
 
   loadExpenseItemsInPage(): void {

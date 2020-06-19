@@ -57,27 +57,6 @@ export class PaginationService {
     return page === 1;
   }
 
-  // isLastPage(): boolean {
-  //   let isLastPage: boolean;
-  //   this.expensesService
-  //     .getCountOfAllExpenseItems()
-  //     .subscribe((count: number) => {
-  //       this.pagination.subscribe({
-  //         next: (currentP: any) => {
-  //           isLastPage = currentP.currentPage * currentP.numberOfItemsDisplayed >= count;
-  //         }
-  //       });
-  //     });
-  //   return isLastPage;
-  // }
-
-  // getCountOfAllExpenseItems(): Observable<number> {
-  //   return this.http.get(this.url)
-  //             .pipe(
-  //               map((data: any) => data.count)
-  //             );
-  // }
-
   isLastpage(itemscount: number): boolean {
     let isLastPage;
     this.pagination.subscribe({
