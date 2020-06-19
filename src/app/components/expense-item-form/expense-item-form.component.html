@@ -56,15 +56,25 @@
         />
     </div>
 
-  <button type="submit">
-    valider
+  <button
+    type="submit"
+    class='form-button'
+  >
+    Valider
   </button>
 
-  <button type="button" [appButton]="SEE">Annuler</button>
+  <button
+    type="button"
+    [appButton]="SEE"
+    class='form-button cancel-button'
+  >
+    Annuler
+  </button>
   <button
     type="button"
     [appButton]="SEE"
     buttonPurpose="DELETE"
+    class='form-button delete-button'
   >Supprimer</button>
 
 </form>

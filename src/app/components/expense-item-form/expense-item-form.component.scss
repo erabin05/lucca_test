@@ -1,3 +1,5 @@
+@import '../../../colors.scss';
+
 .expense-item-form {
   padding : 40px;
   div {
@@ -25,5 +27,26 @@
   }
   .amount-form {
     flex-direction: row;
+  }
+
+  .form-button {
+    margin-right: 10px;
+  }
+  .delete-button {
+    background: none;
+    border-color: $dark-grey;
+    color: $dark-grey;
+    &:hover{
+      border-color: $yellow;
+      color: $yellow;
+    }
+  }
+  .cancel-button {
+    background: $dark-grey;
+    border-color: $dark-grey;
+    &:hover{
+      border-color: $yellow;
+      color: $yellow;
+    }
   }
 }
