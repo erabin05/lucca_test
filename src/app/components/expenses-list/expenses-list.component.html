@@ -14,9 +14,10 @@
     Précédents
   </button>
   <button
+    *ngIf="!paginationService.isLastpage(expenseItemsCount)"
     appPageButton="NEXT"
   >
-    Prochains
+    Suivant
   </button>
 </section>
 

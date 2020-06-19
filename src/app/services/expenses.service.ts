@@ -22,16 +22,11 @@ export class ExpensesService {
     private paginationService: PaginationService
   ) { }
 
-  loadExpenseItemsFromTo(start: number, end: number): void {
-        this.http
-          .get(`${this.url}?offset=${start}&limit=${end - start}`)
-          .subscribe((data: any) => {
-            this.expenseItemsSubject.next(
-              data.items.map((item, i) => ({ ...item, selected : i === 0}))
-            );
-            this.selectedExpenseItemSubject.next(data.items[0]);
-            this.expenseItems = data.items;
-          });
+  getCountOfAllExpenseItems(): Observable<number> {
+    return this.http.get(this.url)
+              .pipe(
+                map((data: any) => data.count)
+              );
   }
 
   loadExpenseItemsInPage(): void {

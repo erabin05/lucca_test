@@ -77,4 +77,14 @@ export class PaginationService {
   //               map((data: any) => data.count)
   //             );
   // }
+
+  isLastpage(itemscount: number): boolean {
+    let isLastPage;
+    this.pagination.subscribe({
+              next: (currentP: any) => {
+                isLastPage = currentP.currentPage * currentP.numberOfItemsDisplayed >= itemscount;
+              }
+            });
+    return isLastPage;
+  }
 }

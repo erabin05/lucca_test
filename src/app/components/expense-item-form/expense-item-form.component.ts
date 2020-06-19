@@ -43,6 +43,7 @@ export class ExpenseItemFormComponent implements OnInit {
         .subscribe(res => console.log(res));
     }
     this.asideStatusService.toSEE();
+    this.expensesService.loadExpenseItemsInPage();
   }
 
   initiateExpenseItemForm() {

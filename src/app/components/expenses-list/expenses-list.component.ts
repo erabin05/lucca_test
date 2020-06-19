@@ -9,6 +9,7 @@ import { PaginationService } from 'src/app/services/pagination.service';
   styleUrls: ['./expenses-list.component.scss']
 })
 export class ExpensesListComponent implements OnInit {
+  expenseItemsCount: number;
   expenseItems: ExpenseItem[];
 
   constructor(
@@ -18,6 +19,9 @@ export class ExpensesListComponent implements OnInit {
 
   ngOnInit() {
     this.getExpenseItemsToDisplay();
+    this.expensesService
+      .getCountOfAllExpenseItems()
+      .subscribe((count: number) => { this.expenseItemsCount = count; });
   }
 
   getExpenseItemsToDisplay() {
