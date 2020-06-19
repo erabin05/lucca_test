@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
     <main>
       <app-expenses-list></app-expenses-list>
       <app-aside></app-aside>
+      <app-notifications></app-notifications>
     </main>
   `
 })

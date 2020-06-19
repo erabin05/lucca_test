@@ -15,6 +15,7 @@ import { AsideComponent } from './components/aside/aside.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ButtonDirective } from './components/aside/directives/button.directive';
 import { PageButtonDirective } from './components/expenses-list/directives/page-button.directive';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { PageButtonDirective } from './components/expenses-list/directives/page-
     AsideComponent,
     HeaderComponent,
     ButtonDirective,
-    PageButtonDirective
+    PageButtonDirective,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,

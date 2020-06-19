@@ -1,0 +1,17 @@
+@import '../../../colors.scss';
+
+.notifications {
+
+    width: 250px;
+    display: flex;
+    flex-direction: row-reverse;
+    div {
+      width: 100%;
+      padding: 20px;
+      background: $yellow;
+      color : $white;
+      -webkit-box-shadow: -1px 2px 5px -1px rgba(0,0,0,0.46);
+      -moz-box-shadow: -1px 2px 5px -1px rgba(0,0,0,0.46);
+      box-shadow: -1px 2px 5px -1px rgba(0,0,0,0.2);
+    }
+}
