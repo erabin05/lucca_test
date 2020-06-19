@@ -37,6 +37,6 @@ export class ExpensesListComponent implements OnInit {
       .loadCountOfAllExpenseItems();
     this.expensesService
       .getCountOfAllExpenseItems()
-      .subscribe((count: number) => { console.log(count); this.expenseItemsCount = count; });
+      .subscribe((count: number) => { this.expenseItemsCount = count; });
   }
 }

@@ -58,6 +58,9 @@ export class ButtonDirective implements OnInit {
         this.expenseService
             .deleteExpense(this.selectedExpenseItem.id)
             .subscribe(() => {
+              if (this.expenseItems.length === 1) {
+                this.paginationService.goToPreviousPage();
+              }
               this.expenseService.loadExpenseItemsInPage();
               this.expenseService.loadCountOfAllExpenseItems();
             });

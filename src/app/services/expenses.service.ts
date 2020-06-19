@@ -24,7 +24,6 @@ export class ExpensesService {
   ) { }
 
   loadCountOfAllExpenseItems(): void {
-    console.log('yo')
     this.http
           .get(this.url)
           .subscribe((data: any) => {
