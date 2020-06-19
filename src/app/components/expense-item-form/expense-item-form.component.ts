@@ -14,6 +14,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class ExpenseItemFormComponent implements OnInit {
   @Input() toUpdate?: boolean;
 
+  title: string;
   expenseItemFormGroup: FormGroup;
   expenseItem = new ExpenseItemForm();
 
@@ -30,6 +31,7 @@ export class ExpenseItemFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.title = this.toUpdate ? 'Modifier' : 'Nouvelle dépense';
     this.expenseItemFormGroup = this.formBuilder.group(this.expenseItem);
     this.initiateExpenseItemForm();
   }
