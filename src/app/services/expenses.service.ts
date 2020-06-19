@@ -35,6 +35,7 @@ export class ExpensesService {
         .get(`${this.url}?offset=${currentP.firstItemDisplayedIndex}&limit=${currentP.numberOfItemsDisplayed}`)
         .subscribe((data: any) => {
           let selectionIndex;
+
           this.passSelectedItem((selectedItem: ExpenseItem) => {
               selectionIndex = data.items.reduce((acc, item, i) => selectedItem.id === item.id ? i : acc, 0);
               this.expenseItemsSubject.next(
@@ -65,7 +66,7 @@ export class ExpensesService {
     return this.selectedExpenseItemSubject.asObservable();
   }
 
-  passSelectedItem(method: (selectedItem: ExpenseItem) => void) {
+  private passSelectedItem(method: (selectedItem: ExpenseItem) => void) {
     this.getSelectedExpenseItem()
         .subscribe((selectedItem) => {
           method(selectedItem);
