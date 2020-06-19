@@ -66,7 +66,7 @@ export class ExpensesService {
     return this.selectedExpenseItemSubject.asObservable();
   }
 
-  private passSelectedItem(method: (selectedItem: ExpenseItem) => void) {
+  private passSelectedItem(method: (selectedItem: ExpenseItem) => void): void {
     this.getSelectedExpenseItem()
         .subscribe((selectedItem) => {
           method(selectedItem);
@@ -103,5 +103,9 @@ export class ExpensesService {
         }
         return expenseItemForm[controlName];
       }).length ===  nonOptionalInputs.length;
+  }
+
+  deleteExpense(id: string): Observable<any> {
+    return this.http.delete(`${this.url}/${id}`);
   }
 }

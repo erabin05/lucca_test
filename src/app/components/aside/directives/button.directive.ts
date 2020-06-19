@@ -1,32 +1,57 @@
-import { Directive, Input, HostListener } from '@angular/core';
+import { Directive, Input, HostListener, OnInit } from '@angular/core';
 import { AsideStatusService } from 'src/app/services/aside-status.service';
 import { ExpensesService } from 'src/app/services/expenses.service';
+import { ExpenseItem } from 'src/app/entities/expense-item';
 
 @Directive({
   selector: '[appButton]'
 })
-export class ButtonDirective {
+export class ButtonDirective implements OnInit {
   @Input('appButton') status: string;
+  @Input() buttonPurpose: string;
+
 
   SEE = this.asideStatusService.SEE;
   CREATE = this.asideStatusService.CREATE;
   MODIFIE = this.asideStatusService.MODIFIE;
+
+  selectedExpenseItem: ExpenseItem;
 
   constructor(
     private asideStatusService: AsideStatusService,
     private expenseService: ExpensesService
   ) { }
 
+  ngOnInit() {
+    this.expenseService
+      .getSelectedExpenseItem()
+      .subscribe((item) => {
+        this.selectedExpenseItem = item;
+      });
+  }
+
   @HostListener('click')
   transition() {
-    if (this.status === this.SEE) {
-      this.asideStatusService.toSEE();
+    switch (this.status) {
+      case this.SEE:
+        this.asideStatusService.toSEE();
+        this.expenseService.loadExpenseItemsInPage();
+        break;
+      case this.CREATE:
+        this.asideStatusService.toCREATE();
+        break;
+      case this.MODIFIE:
+        this.asideStatusService.toMODIFIE();
+        break;
     }
-    if (this.status === this.CREATE) {
-      this.asideStatusService.toCREATE();
-    }
-    if (this.status === this.MODIFIE) {
-      this.asideStatusService.toMODIFIE();
+
+    switch (this.buttonPurpose) {
+      case 'DELETE':
+        this.expenseService
+            .deleteExpense(this.selectedExpenseItem.id)
+            .subscribe();
+        this.expenseService.loadExpenseItemsInPage();
+        break;
     }
   }
 }
