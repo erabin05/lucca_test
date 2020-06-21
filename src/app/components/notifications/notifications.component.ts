@@ -21,5 +21,4 @@ export class NotificationsComponent implements OnInit {
             this.notifications = notifications;
           });
   }
-
 }

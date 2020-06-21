@@ -32,6 +32,7 @@ export class ExpenseItemFormComponent implements OnInit {
 
   ngOnInit() {
     this.title = this.toUpdate ? 'Modifier' : 'Nouvelle dépense';
+    this.loadCurrencyRate();
     this.expenseItemFormGroup = this.formBuilder.group(this.expenseItem);
     this.initiateExpenseItemForm();
   }
@@ -63,6 +64,18 @@ export class ExpenseItemFormComponent implements OnInit {
         this.expenseItem = new ExpenseItemForm(item);
         this.expenseItemFormGroup = this.formBuilder.group(this.expenseItem);
       });
+    }
+  }
+
+  loadCurrencyRate() {
+    if (this. toUpdate) {
+      this.expensesService
+        .getSelectedExpenseItem()
+        .subscribe((expenseItem) => {
+          this.currencyRateService.loadCurrencyRates(expenseItem.purchasedOn);
+      });
+    } else {
+      this.currencyRateService.loadCurrencyRates();
     }
   }
 
