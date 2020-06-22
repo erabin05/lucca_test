@@ -2,9 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ExpenseItem, ExpenseItemForm, Amount } from 'src/app/entities/expense-item';
 import { ExpensesService } from 'src/app/services/expenses.service';
-import { CurrencyRateService } from 'src/app/services/currency-rate.service';
 import { AsideStatusService } from 'src/app/services/aside-status.service';
 import { NotificationService } from 'src/app/services/notification.service';
+import { CurrencyRateService } from 'src/app/services/currency-rate.service';
 
 @Component({
   selector: 'app-expense-item-form',
@@ -66,34 +66,4 @@ export class ExpenseItemFormComponent implements OnInit {
       });
     }
   }
-
-  convertCurrency() {
-    const {
-      purchasedOn,
-      originalAmount,
-      originalAmountCurrency
-    } = this.expenseItemFormGroup.value;
-
-    this.currencyRateService
-        .convertInEuro(
-          new Amount(originalAmount, originalAmountCurrency),
-          purchasedOn
-        )
-        .subscribe((convertedAmount: Amount) => {
-          this.expenseItemFormGroup.value.convertedAmount = convertedAmount.amount;
-          this.expenseItemFormGroup.value.convertedAmountCurreny = convertedAmount.currency;
-        });
-  }
-
-  // loadCurrencyRate() {
-  //   if (this. toUpdate) {
-  //     this.expensesService
-  //       .getSelectedExpenseItem()
-  //       .subscribe((expenseItem) => {
-  //         this.currencyRateService.loadCurrencyRates(expenseItem.purchasedOn);
-  //     });
-  //   } else {
-  //     this.currencyRateService.loadCurrencyRates();
-  //   }
-  // }
 }

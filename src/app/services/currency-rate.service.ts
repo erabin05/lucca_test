@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Amount } from '../entities/expense-item';
 import { CurrencyRateList, CurrencyRate } from '../entities/currency-rate';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CurrencyRateListervice {
+export class CurrencyRateService {
 
   constructor(
     private http: HttpClient
