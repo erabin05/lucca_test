@@ -1,4 +1,5 @@
 import { Directive, SimpleChanges, OnChanges, HostListener, Input } from '@angular/core';
+import { CurrencyRateService } from 'src/app/services/currency-rate.service';
 
 @Directive({
   selector: '[appAmountInput]'
@@ -6,12 +7,12 @@ import { Directive, SimpleChanges, OnChanges, HostListener, Input } from '@angul
 export class AmountInputDirective implements OnChanges {
   @Input('appAmountInput') value;
 
-  constructor() {
-
+  constructor(
+    private currencyRateService: CurrencyRateService
+  ) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes.value.currentValue);
+    this.currencyRateService.convertInEuro(changes.value.currentValue);
   }
-
 }

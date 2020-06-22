@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ExpenseItem, ExpenseItemForm, Amount } from 'src/app/entities/expense-item';
+import { ExpenseItemForm, Amount } from 'src/app/entities/expense-item';
 import { ExpensesService } from 'src/app/services/expenses.service';
 import { AsideStatusService } from 'src/app/services/aside-status.service';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -17,6 +17,7 @@ export class ExpenseItemFormComponent implements OnInit {
   title: string;
   expenseItemFormGroup: FormGroup;
   expenseItem = new ExpenseItemForm();
+  convertedAmount: Amount;
 
   SEE = this.asideStatusService.SEE;
   CREATE = this.asideStatusService.CREATE;
@@ -34,10 +35,10 @@ export class ExpenseItemFormComponent implements OnInit {
     this.title = this.toUpdate ? 'Modifier' : 'Nouvelle dépense';
     this.expenseItemFormGroup = this.formBuilder.group(this.expenseItem);
     this.initiateExpenseItemForm();
-
+    this.convertAmount();
   }
 
-  submitForm() {
+  submitForm(): void {
     if (this.toUpdate) {
       this.expensesService
         .putExpenseItem(this.expenseItemFormGroup.value)
@@ -58,12 +59,23 @@ export class ExpenseItemFormComponent implements OnInit {
     this.asideStatusService.toSEE();
   }
 
-  initiateExpenseItemForm() {
+  initiateExpenseItemForm(): void {
     if (this.toUpdate) {
-      this.expensesService.getSelectedExpenseItem().subscribe((item) => {
-        this.expenseItem = new ExpenseItemForm(item);
-        this.expenseItemFormGroup = this.formBuilder.group(this.expenseItem);
-      });
+      this.expensesService
+          .getSelectedExpenseItem()
+          .subscribe((item) => {
+            this.expenseItem = new ExpenseItemForm(item);
+            this.expenseItemFormGroup = this.formBuilder.group(this.expenseItem);
+          });
     }
+  }
+
+  convertAmount(): void {
+    this.currencyRateService
+        .getConvertedAmount()
+        .subscribe((convertedAmount) => {
+          this.convertedAmount = convertedAmount;
+          console.log(convertedAmount)
+        });
   }
 }

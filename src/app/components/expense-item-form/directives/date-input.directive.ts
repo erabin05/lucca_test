@@ -1,17 +1,17 @@
-import { Directive, Input, OnChanges, ElementRef, OnInit, SimpleChanges } from '@angular/core';
+import { Directive, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { CurrencyRateService } from 'src/app/services/currency-rate.service';
 
 @Directive({
   selector: '[appDateInput]'
 })
-export class DateInputDirective implements OnChanges, OnInit{
+export class DateInputDirective implements OnChanges {
   @Input('appDateInput') value;
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  constructor(
+    private currencyRateService: CurrencyRateService
+  ) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes.value.currentValue)
+    this.currencyRateService.loadCurrencyRateAtDate(changes.value.currentValue);
   }
 }
