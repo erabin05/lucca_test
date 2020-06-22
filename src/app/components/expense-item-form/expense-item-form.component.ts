@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ExpenseItem, ExpenseItemForm } from 'src/app/entities/expense-item';
+import { ExpenseItem, ExpenseItemForm, Amount } from 'src/app/entities/expense-item';
 import { ExpensesService } from 'src/app/services/expenses.service';
 import { CurrencyRateService } from 'src/app/services/currency-rate.service';
 import { AsideStatusService } from 'src/app/services/aside-status.service';
@@ -32,9 +32,9 @@ export class ExpenseItemFormComponent implements OnInit {
 
   ngOnInit() {
     this.title = this.toUpdate ? 'Modifier' : 'Nouvelle dépense';
-    this.loadCurrencyRate();
     this.expenseItemFormGroup = this.formBuilder.group(this.expenseItem);
     this.initiateExpenseItemForm();
+
   }
 
   submitForm() {
@@ -67,16 +67,33 @@ export class ExpenseItemFormComponent implements OnInit {
     }
   }
 
-  loadCurrencyRate() {
-    if (this. toUpdate) {
-      this.expensesService
-        .getSelectedExpenseItem()
-        .subscribe((expenseItem) => {
-          this.currencyRateService.loadCurrencyRates(expenseItem.purchasedOn);
-      });
-    } else {
-      this.currencyRateService.loadCurrencyRates();
-    }
+  convertCurrency() {
+    const {
+      purchasedOn,
+      originalAmount,
+      originalAmountCurrency
+    } = this.expenseItemFormGroup.value;
+
+    this.currencyRateService
+        .convertInEuro(
+          new Amount(originalAmount, originalAmountCurrency),
+          purchasedOn
+        )
+        .subscribe((convertedAmount: Amount) => {
+          this.expenseItemFormGroup.value.convertedAmount = convertedAmount.amount;
+          this.expenseItemFormGroup.value.convertedAmountCurreny = convertedAmount.currency;
+        });
   }
 
+  // loadCurrencyRate() {
+  //   if (this. toUpdate) {
+  //     this.expensesService
+  //       .getSelectedExpenseItem()
+  //       .subscribe((expenseItem) => {
+  //         this.currencyRateService.loadCurrencyRates(expenseItem.purchasedOn);
+  //     });
+  //   } else {
+  //     this.currencyRateService.loadCurrencyRates();
+  //   }
+  // }
 }

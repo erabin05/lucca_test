@@ -1,16 +1,18 @@
-import { Injectable } from '@angular/core';
-import { CurrencyRateService } from '../services/currency-rate.service';
-import { FormGroup } from '@angular/forms';
-
 export class Amount {
   amount: number;
   currency: string;
 
   constructor(
-    private currencyRateService?: CurrencyRateService
+    amount?: number,
+    currency?: string
   ) {
-    this.amount = 0;
-    this.currency = 'EUR';
+    if (amount && currency) {
+      this.amount = amount;
+      this.currency = currency;
+    } else {
+      this.amount = 0;
+      this.currency = 'EUR';
+    }
   }
 }
 
@@ -40,30 +42,28 @@ export class ExpenseItemForm {
   nature: string;
   originalAmount: number;
   originalAmountCurrency: string;
+  convertedAmount: number;
+  convertedAmountCurrency: string;
   comment?: string;
 
   constructor(
     expenseItem?: ExpenseItem
   ) {
     if (expenseItem) {
-      return {
-        id: expenseItem.id,
-        purchasedOn: expenseItem.purchasedOn,
-        nature: expenseItem.nature,
-        originalAmount: expenseItem.originalAmount.amount,
-        originalAmountCurrency: expenseItem.originalAmount.currency,
-        comment: expenseItem.comment,
-        toExpenseItem: this.toExpenseItem
-      };
+      this.id = expenseItem.id;
+      this.purchasedOn = expenseItem.purchasedOn;
+      this.nature = expenseItem.nature;
+      this.originalAmount = expenseItem.originalAmount.amount;
+      this.originalAmountCurrency = expenseItem.originalAmount.currency;
+      this.convertedAmount = expenseItem.convertedAmount.amount;
+      this.convertedAmountCurrency = expenseItem.convertedAmount.currency;
+      this.comment = expenseItem.comment;
     } else {
-      return {
-        purchasedOn: '',
-        nature: '',
-        originalAmount: 0,
-        originalAmountCurrency: 'EUR',
-        comment: '',
-        toExpenseItem: this.toExpenseItem
-      };
+      this.purchasedOn = '';
+      this.nature = '';
+      this.originalAmount = 0;
+      this.originalAmountCurrency = 'EUR';
+      this.comment = '';
     }
   }
 
