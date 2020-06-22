@@ -1,5 +1,4 @@
 import { Directive, SimpleChanges, OnChanges, HostListener, Input } from '@angular/core';
-import { CurrencyRateService } from 'src/app/services/currency-rate.service';
 
 @Directive({
   selector: '[appAmountInput]'

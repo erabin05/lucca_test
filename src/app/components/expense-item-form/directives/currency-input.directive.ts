@@ -1,5 +1,4 @@
 import { Directive, Input, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
-import { CurrencyRateService } from 'src/app/services/currency-rate.service';
 
 @Directive({
   selector: '[appCurrencyInput]'

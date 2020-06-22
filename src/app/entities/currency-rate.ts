@@ -3,7 +3,7 @@ export class CurrencyRate {
   currency: string;
 }
 
-export class CurrencyRates {
+export class CurrencyRateList {
   date: string;
   rates: CurrencyRate[];
 }
