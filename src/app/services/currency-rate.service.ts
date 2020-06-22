@@ -25,20 +25,27 @@ export class CurrencyRateService {
     return this.convertedAmount.asObservable();
   }
 
+  getselectedRate(): Observable<CurrencyRate> {
+    return this.selectedRate.asObservable();
+  }
+
   getselectedDate(): Observable<string> {
     return this.selectedDate.asObservable();
   }
 
+  getCurrencyRateLists(): Observable<CurrencyRateList[]> {
+    return this.currencyRateLists.asObservable();
+  }
+
   convertInEuro(amount?: number): void {
-    let selectedRate: CurrencyRate;
     this.selectedRate
               .asObservable()
               .subscribe((rate) => {
-                selectedRate = rate;
+                if (rate) {
+                  this.convertedAmount.next(new Amount(amount / rate.rate, 'EUR'));
+                }
               });
-    if (selectedRate) {
-      this.convertedAmount.next(new Amount(amount / selectedRate.rate, 'EUR'));
-    }
+
   }
 
   selectRateOfCurrency(currency?: string): void {
@@ -47,16 +54,15 @@ export class CurrencyRateService {
               .asObservable()
               .subscribe((date) => selectedDate = date);
     if (currency !== 'EUR') {
-      let selectedRate: CurrencyRate;
       this.currencyRateLists
           .asObservable()
           .subscribe((lists: CurrencyRateList[]) => {
             if (lists.length > 0) {
               const RatesAtDate = lists.reduce((acc, list) => list.date === selectedDate ? list : acc);
-              selectedRate = RatesAtDate.rates.reduce((acc, rate) => rate.currency === currency ? rate : acc);
+              const selectedRate = RatesAtDate.rates.reduce((acc, rate) => rate.currency === currency ? rate : acc);
+              this.selectedRate.next(selectedRate);
             }
           });
-      this.selectedRate.next(selectedRate);
     } else {
       this.selectedRate.next(new CurrencyRate());
     }

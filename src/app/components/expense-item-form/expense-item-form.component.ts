@@ -75,7 +75,6 @@ export class ExpenseItemFormComponent implements OnInit {
         .getConvertedAmount()
         .subscribe((convertedAmount) => {
           this.convertedAmount = convertedAmount;
-          console.log(convertedAmount)
         });
   }
 }
