@@ -1,25 +1,15 @@
-import { Directive, SimpleChanges, OnChanges, HostListener, Input, OnInit } from '@angular/core';
+import { Directive, SimpleChanges, OnChanges, Input} from '@angular/core';
 import { CurrencyRateService } from 'src/app/services/currency-rate.service';
-import { CurrencyRateList, CurrencyRate } from 'src/app/entities/currency-rate';
 
 @Directive({
   selector: '[appAmountInput]'
 })
-export class AmountInputDirective implements OnChanges, OnInit {
+export class AmountInputDirective implements OnChanges {
   @Input('appAmountInput') value;
-  selectedDate: CurrencyRate;
 
   constructor(
     private currencyRateService: CurrencyRateService
   ) {
-  }
-
-  ngOnInit() {
-    this.currencyRateService
-        .getselectedRate()
-        .subscribe((rate) => {
-          this.selectedDate = rate;
-        });
   }
 
   ngOnChanges(changes: SimpleChanges) {

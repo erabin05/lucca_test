@@ -25,27 +25,18 @@ export class CurrencyRateService {
     return this.convertedAmount.asObservable();
   }
 
-  getselectedRate(): Observable<CurrencyRate> {
-    return this.selectedRate.asObservable();
-  }
-
-  getselectedDate(): Observable<string> {
-    return this.selectedDate.asObservable();
-  }
-
-  getCurrencyRateLists(): Observable<CurrencyRateList[]> {
-    return this.currencyRateLists.asObservable();
-  }
-
   convertInEuro(amount?: number): void {
     this.selectedRate
               .asObservable()
               .subscribe((rate) => {
                 if (rate) {
-                  this.convertedAmount.next(new Amount(amount / rate.rate, 'EUR'));
+                  this.convertedAmount.next(new Amount(this.roundConvertedAmount(amount / rate.rate), 'EUR'));
                 }
               });
+  }
 
+  private roundConvertedAmount(amount: number): number {
+    return Math.floor(amount * 100) / 100;
   }
 
   selectRateOfCurrency(currency?: string): void {
