@@ -17,8 +17,11 @@ import { ButtonDirective } from './components/aside/directives/button.directive'
 import { CurrencyInputDirective } from './components/expense-item-form/directives/currency-input.directive';
 import { PageButtonDirective } from './components/expenses-list/directives/page-button.directive';
 import { SelectItemDirective } from './components/expense-item-line/directives/select-item.directive';
+import { DateInputDirective } from './components/expense-item-form/directives/date-input.directive';
+import { AmountInputDirective } from './components/expense-item-form/directives/amount-input.directive';
 
 import { DisplayAmountPipe } from './pipes/display-amount.pipe';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import { DisplayAmountPipe } from './pipes/display-amount.pipe';
     HeaderComponent,
     NotificationsComponent,
     PageButtonDirective,
-    SelectItemDirective
+    SelectItemDirective,
+    DateInputDirective,
+    AmountInputDirective
   ],
   imports: [
     BrowserModule,

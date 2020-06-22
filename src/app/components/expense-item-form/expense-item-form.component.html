@@ -30,7 +30,7 @@
               type="number"
               placeholder="0"
               formControlName="originalAmount"
-              appCurrencyInput
+              [appAmountInput]="expenseItemFormGroup.value.originalAmount"
             />
         </div>
         <div>
@@ -38,6 +38,7 @@
             <select
               id="curency"
               formControlName="originalAmountCurrency"
+              [appCurrencyInput]="expenseItemFormGroup.value.originalAmountCurrency"
             >
                 <option
                   *ngFor="let currency of currencyRateService.currencys"
