@@ -80,6 +80,7 @@ export class ExpensesService {
   }
 
   postExpenseItem(newExpenseItemForm: ExpenseItemForm): Observable<any> {
+    console.log(this.formToExpenseItem(newExpenseItemForm))
     if (this.isRequieredFieldFilled(newExpenseItemForm)) {
       return this.http.post(this.url, this.formToExpenseItem(newExpenseItemForm));
     } else {
@@ -105,7 +106,7 @@ export class ExpensesService {
       },
       convertedAmount: {
         amount: expenseItemForm.convertedAmount,
-        currency: expenseItemForm.convertedAmountCurrency
+        currency: "EUR"
       },
       comment: expenseItemForm.comment
     };

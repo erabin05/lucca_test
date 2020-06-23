@@ -71,6 +71,7 @@ export class ExpenseItemFormComponent implements OnInit {
       this.expensesService
         .postExpenseItem(this.expenseItemFormGroup.value)
         .subscribe(res => {
+          console.log(res)
           this.notificationService.newNotification(`La dépense a été créée`);
           this.expensesService.loadExpenseItemsInPage();
           this.expensesService.loadCountOfAllExpenseItems();
