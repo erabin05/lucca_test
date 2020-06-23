@@ -9,16 +9,18 @@
     display: flex;
     flex-direction: column;
   }
-  button {
-    margin: 0;
-    background: none;
-    border: solid 1px $dark-grey;
-    color: $dark-grey;
-    padding: 5px 10px 5px 10px;
-    font-weight: 500;
-    font-size: 0.8rem;
-  }
-  app-expenses-list-sortbar {
-    height: 5%;
+  .pagination-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    button {
+      margin: 0 20px 0 20px;
+      background: none;
+      border: solid 1px $dark-grey;
+      color: $dark-grey;
+      padding: 5px 10px 5px 10px;
+      font-weight: 500;
+      font-size: 0.8rem;
+    }
   }
 }

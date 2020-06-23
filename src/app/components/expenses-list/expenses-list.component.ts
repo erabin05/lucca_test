@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ExpensesService } from 'src/app/services/expenses.service';
 import { ExpenseItem } from 'src/app/entities/expense-item';
 import { PaginationService } from 'src/app/services/pagination.service';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-expenses-list',
@@ -11,6 +12,8 @@ import { PaginationService } from 'src/app/services/pagination.service';
 export class ExpensesListComponent implements OnInit {
   expenseItemsCount: number;
   expenseItems: ExpenseItem[];
+  pagination: any;
+  numberOfPage: number; // = Math.floor(this.expenseItemsCount / this.pagination.numberOfItemsDisplayed);
 
   constructor(
     public expensesService: ExpensesService,
@@ -19,7 +22,7 @@ export class ExpensesListComponent implements OnInit {
 
   ngOnInit() {
     this.getExpenseItemsToDisplay();
-    this.getCountofAllExpensesItem();
+    this.getCountofAllExpensesItemAndPagination();
   }
 
   getExpenseItemsToDisplay() {
@@ -32,11 +35,21 @@ export class ExpensesListComponent implements OnInit {
       });
   }
 
-  getCountofAllExpensesItem() {
+  getCountofAllExpensesItemAndPagination() {
     this.expensesService
       .loadCountOfAllExpenseItems();
     this.expensesService
       .getCountOfAllExpenseItems()
-      .subscribe((count: number) => { this.expenseItemsCount = count; });
+      .pipe(
+        mergeMap(
+          (count: number) => {
+            this.expenseItemsCount = count;
+            return this.paginationService.getPagination()
+        })
+      )
+      .subscribe((pagination: any) => {
+        this.pagination = pagination;
+        this.numberOfPage = Math.ceil(this.expenseItemsCount / pagination.numberOfItemsDisplayed);
+      });
   }
 }

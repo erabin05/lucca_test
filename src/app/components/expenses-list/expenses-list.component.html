@@ -8,17 +8,24 @@
     >
     </app-expense-item-line>
   </ul>
-  <button
-  *ngIf="!paginationService.isFirstPage()"
-    appPageButton="PREVIOUS"
-  >
-    Précédents
-  </button>
-  <button
-    *ngIf="!paginationService.isLastpage(expenseItemsCount)"
-    appPageButton="NEXT"
-  >
-    Suivant
-  </button>
+  <div class="pagination-buttons">
+      <button
+      class="previous"
+        appPageButton="PREVIOUS"
+       [pagination]="pagination"
+      >
+        <
+      </button>
+      <label>
+        Page {{ pagination.currentPage }} sur {{ numberOfPage }}
+      </label>
+      <button
+      class="next"
+        appPageButton="NEXT"
+        [pagination]="pagination"
+      >
+        >
+      </button>
+  </div>
 </section>
 
