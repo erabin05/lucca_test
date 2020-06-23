@@ -21,6 +21,8 @@ import { DateInputDirective } from './components/expense-item-form/directives/da
 import { AmountInputDirective } from './components/expense-item-form/directives/amount-input.directive';
 
 import { DisplayAmountPipe } from './pipes/display-amount.pipe';
+import { ExpensesListSortbarComponent } from './components/expenses-list-sortbar/expenses-list-sortbar.component';
+import { SortButtonDirective } from './components/expenses-list-sortbar/directives/sort-button.directive';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { DisplayAmountPipe } from './pipes/display-amount.pipe';
     PageButtonDirective,
     SelectItemDirective,
     DateInputDirective,
-    AmountInputDirective
+    AmountInputDirective,
+    ExpensesListSortbarComponent,
+    SortButtonDirective
   ],
   imports: [
     BrowserModule,

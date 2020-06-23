@@ -1,0 +1,25 @@
+@import '../../../colors.scss';
+.expense-item-line, .expenses-list-sortbar {
+  width: 100%;
+  padding: 20px 40px 20px 40px;
+  display: flex;
+  flex-direction: row;
+  section, label {
+    width : 100%
+  }
+  .amount {
+    max-width: 120px;
+  }
+}
+
+.expenses-list-sortbar {
+  height: 7%;
+  padding-top: 0;
+  padding-bottom: 0;
+  align-items: center;
+  border-bottom: 1px solid $light-grey;
+  // label {
+  //   color: $white;
+  //   font-weight: 500;
+  // }
+}

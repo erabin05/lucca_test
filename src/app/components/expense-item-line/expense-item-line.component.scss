@@ -1,16 +1,6 @@
 @import '../../../colors.scss';
 
 .expense-item-line {
-  width: 100%;
-  padding: 20px 40px 20px 40px;
-  display: flex;
-  flex-direction: row;
-  section {
-    width : 100%
-  }
-  .amount {
-    max-width: 120px;
-  }
   &:hover{
     cursor: pointer;
     background: $light-grey;
