@@ -13,6 +13,6 @@
       {{ expenseItem.originalAmount | displayAmount }}
   </section>
   <section class='amount'>
-      {{ expenseItem.convertedAmount | displayAmount }}
+      {{ expenseItem.convertedAmount | displayAmount:'convertedAmount':expenseItem.originalAmount.currency }}
   </section>
 </li>

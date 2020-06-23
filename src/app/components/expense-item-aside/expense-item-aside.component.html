@@ -11,17 +11,24 @@
         <label>Montant</label>
         <p>{{expenseItem.originalAmount | displayAmount}}</p>
       </div>
-      <div>
+      <div
+        *ngIf="expenseItem.originalAmount.currency !== 'EUR'"
+      >
         <label>Montant en euro</label>
         <p>{{expenseItem.convertedAmount | displayAmount}}</p>
       </div>
   </div>
-  <label>Commentaire</label>
-  <p>{{expenseItem.comment}}</p>
+  <div
+    *ngIf='expenseItem.comment'
+  >
+      <label>Commentaire</label>
+      <p>{{expenseItem.comment}}</p>
+  </div>
+
   <label>Crée le</label>
-  <p>{{expenseItem.createdAt}}</p>
+  <p>{{expenseItem.createdAt | updatingDate}}</p>
   <label>Modifié le</label>
-  <p>{{expenseItem.lastModifiedAt}}</p>
+  <p>{{expenseItem.lastModifiedAt | updatingDate}}</p>
   <div class="buttons">
 
     <button [appButton]="MODIFIE">Modifer</button>

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { throwError, BehaviorSubject } from 'rxjs';
-import { Observable, Subject } from 'rxjs';
+import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { ExpenseItem, ExpenseItemForm } from '../entities/expense-item';
 import { PaginationService } from './pagination.service';
 
@@ -41,7 +39,6 @@ export class ExpensesService {
         .get(`${this.url}?offset=${currentP.firstItemDisplayedIndex}&limit=${currentP.numberOfItemsDisplayed}`)
         .subscribe((data: any) => {
           let selectionIndex;
-
           this.passSelectedItem((selectedItem: ExpenseItem) => {
               selectionIndex = data.items.reduce((acc, item, i) => selectedItem.id === item.id ? i : acc, 0);
               this.expenseItemsSubject.next(
@@ -57,6 +54,13 @@ export class ExpensesService {
     });
   }
 
+  private passSelectedItem(method: (selectedItem: ExpenseItem) => void): void {
+    this.getSelectedExpenseItem()
+        .subscribe((selectedItem) => {
+          method(selectedItem);
+        });
+  }
+
   getExpenseItems(): Observable<ExpenseItem[]> {
     return this.expenseItemsSubject.asObservable();
   }
@@ -70,13 +74,6 @@ export class ExpensesService {
 
   getSelectedExpenseItem(): Observable<ExpenseItem> {
     return this.selectedExpenseItemSubject.asObservable();
-  }
-
-  private passSelectedItem(method: (selectedItem: ExpenseItem) => void): void {
-    this.getSelectedExpenseItem()
-        .subscribe((selectedItem) => {
-          method(selectedItem);
-        });
   }
 
   postExpenseItem(newExpenseItemForm: ExpenseItemForm): Observable<any> {

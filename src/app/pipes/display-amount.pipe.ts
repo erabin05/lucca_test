@@ -6,7 +6,10 @@ import { Amount } from '../entities/expense-item';
 })
 export class DisplayAmountPipe implements PipeTransform {
 
-  transform(amount: Amount, ...args: any[]): string {
+  transform(amount: Amount, type?: string, originalCurrency?: string): string {
+    if (type === 'convertedAmount' && originalCurrency === 'EUR') {
+      return '-------';
+    }
     return `${amount.amount} ${amount.currency}`;
   }
 

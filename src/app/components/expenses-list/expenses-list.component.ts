@@ -13,7 +13,7 @@ export class ExpensesListComponent implements OnInit {
   expenseItemsCount: number;
   expenseItems: ExpenseItem[];
   pagination: any;
-  numberOfPage: number; // = Math.floor(this.expenseItemsCount / this.pagination.numberOfItemsDisplayed);
+  numberOfPage: number;
 
   constructor(
     public expensesService: ExpensesService,
@@ -44,7 +44,7 @@ export class ExpensesListComponent implements OnInit {
         mergeMap(
           (count: number) => {
             this.expenseItemsCount = count;
-            return this.paginationService.getPagination()
+            return this.paginationService.getPagination();
         })
       )
       .subscribe((pagination: any) => {

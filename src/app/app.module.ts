@@ -23,6 +23,7 @@ import { AmountInputDirective } from './components/expense-item-form/directives/
 import { DisplayAmountPipe } from './pipes/display-amount.pipe';
 import { ExpensesListSortbarComponent } from './components/expenses-list-sortbar/expenses-list-sortbar.component';
 import { SortButtonDirective } from './components/expenses-list-sortbar/directives/sort-button.directive';
+import { UpdatingDatePipe } from './pipes/updating-date.pipe';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { SortButtonDirective } from './components/expenses-list-sortbar/directiv
     DateInputDirective,
     AmountInputDirective,
     ExpensesListSortbarComponent,
-    SortButtonDirective
+    SortButtonDirective,
+    UpdatingDatePipe
   ],
   imports: [
     BrowserModule,

@@ -44,7 +44,7 @@ export class PageButtonDirective implements OnInit, OnChanges {
 
   changeOpacityIf(condition: boolean): void {
     if (condition) {
-      this.el.nativeElement.style.opacity = '0.5';
+      this.el.nativeElement.style.opacity = '0.3';
     } else {
       this.el.nativeElement.style.opacity = '1';
     }
