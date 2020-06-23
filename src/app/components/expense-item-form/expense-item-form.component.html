@@ -50,8 +50,9 @@
             </select>
         </div>
     </div>
-    <div>
-
+    <div
+      *ngIf="expenseItemFormGroup.value.originalAmountCurrency !== 'EUR'"
+    >
       <label for="amount">Montant en Euro</label>
       <div>{{convertedAmount.amount}} {{convertedAmount.currency}}</div>
     </div>

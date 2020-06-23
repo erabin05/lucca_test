@@ -38,7 +38,27 @@ export class ExpenseItemFormComponent implements OnInit {
     this.convertAmount();
   }
 
+  initiateExpenseItemForm(): void {
+    if (this.toUpdate) {
+      this.expensesService
+          .getSelectedExpenseItem()
+          .subscribe((item) => {
+            this.expenseItem = new ExpenseItemForm(item);
+            this.expenseItemFormGroup = this.formBuilder.group(this.expenseItem);
+          });
+    }
+  }
+
+  convertAmount(): void {
+    this.currencyRateService
+        .getConvertedAmount()
+        .subscribe((convertedAmount) => {
+          this.convertedAmount = convertedAmount;
+        });
+  }
+
   submitForm(): void {
+    this.expenseItemFormGroup.value.convertedAmount = this.convertedAmount.amount;
     if (this.toUpdate) {
       this.expensesService
         .putExpenseItem(this.expenseItemFormGroup.value)
@@ -57,24 +77,5 @@ export class ExpenseItemFormComponent implements OnInit {
         });
     }
     this.asideStatusService.toSEE();
-  }
-
-  initiateExpenseItemForm(): void {
-    if (this.toUpdate) {
-      this.expensesService
-          .getSelectedExpenseItem()
-          .subscribe((item) => {
-            this.expenseItem = new ExpenseItemForm(item);
-            this.expenseItemFormGroup = this.formBuilder.group(this.expenseItem);
-          });
-    }
-  }
-
-  convertAmount(): void {
-    this.currencyRateService
-        .getConvertedAmount()
-        .subscribe((convertedAmount) => {
-          this.convertedAmount = convertedAmount;
-        });
   }
 }

@@ -81,7 +81,7 @@ export class ExpensesService {
 
   postExpenseItem(newExpenseItemForm: ExpenseItemForm): Observable<any> {
     if (this.isRequieredFieldFilled(newExpenseItemForm)) {
-      return this.http.post(this.url, newExpenseItemForm.toExpenseItem());
+      return this.http.post(this.url, this.formToExpenseItem(newExpenseItemForm));
     } else {
       return throwError(new Error (`Fill in the requiered fields`));
     }
@@ -89,10 +89,26 @@ export class ExpensesService {
 
   putExpenseItem(updatedExpenseItemForm: ExpenseItemForm): Observable<any> {
     if (this.isRequieredFieldFilled(updatedExpenseItemForm)) {
-      return this.http.put(`${this.url}/${updatedExpenseItemForm.id}`, updatedExpenseItemForm.toExpenseItem());
+      return this.http.put(`${this.url}/${updatedExpenseItemForm.id}`, this.formToExpenseItem(updatedExpenseItemForm));
     } else {
       return throwError(new Error (`Fill in the requiered fields`));
     }
+  }
+
+  formToExpenseItem(expenseItemForm: ExpenseItemForm): ExpenseItem {
+    return {
+      purchasedOn: expenseItemForm.purchasedOn,
+      nature: expenseItemForm.nature,
+      originalAmount: {
+        amount: expenseItemForm.originalAmount,
+        currency: expenseItemForm.originalAmountCurrency
+      },
+      convertedAmount: {
+        amount: expenseItemForm.convertedAmount,
+        currency: expenseItemForm.convertedAmountCurrency
+      },
+      comment: expenseItemForm.comment
+    };
   }
 
   isRequieredFieldFilled(expenseItemForm: ExpenseItemForm): boolean {

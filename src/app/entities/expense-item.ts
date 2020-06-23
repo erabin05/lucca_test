@@ -59,25 +59,11 @@ export class ExpenseItemForm {
       this.convertedAmountCurrency = expenseItem.convertedAmount.currency;
       this.comment = expenseItem.comment;
     } else {
-      this.purchasedOn = '';
+      this.purchasedOn = new Date().toISOString().substr(0, 10);
       this.nature = '';
       this.originalAmount = 0;
       this.originalAmountCurrency = 'EUR';
       this.comment = '';
     }
-  }
-
-  toExpenseItem(): ExpenseItem {
-    return {
-      purchasedOn: this.purchasedOn,
-      nature: this.nature,
-      originalAmount: {
-        amount: this.originalAmount,
-        currency: this.originalAmountCurrency
-      },
-      convertedAmount: new Amount(),
-      comment: this.comment
-    };
-
   }
 }
