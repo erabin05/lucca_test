@@ -20,7 +20,7 @@ export class RequiredFieldDirective implements OnChanges {
       case 'date':
         const today = new Date();
         const selectedDate = new Date(currentValue);
-        this.redSignIf(selectedDate > today);
+        this.redSignIf(!currentValue || selectedDate > today);
         break;
       case 'nature':
         this.redSignIf(!currentValue || currentValue === '');

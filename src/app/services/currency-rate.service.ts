@@ -59,27 +59,30 @@ export class CurrencyRateService {
     }
   }
 
-  loadCurrencyRateAtDate(date?: string): void {
-    this.selectedDate.next(date);
-    let currencyRateLists: CurrencyRateList[];
-    this.currencyRateLists
-      .asObservable()
-      .subscribe((rateLists) => {
-        currencyRateLists = rateLists;
-    });
-    const isAlreadyInList = currencyRateLists.filter((list) => list.date === date).length > 0;
-    if (!isAlreadyInList) {
-      let currencyRateListAPI: CurrencyRateList;
-      this.http
-                .get(`${this.url}${date}`)
-                .subscribe((data: any) => {
-                  currencyRateListAPI = this.sortAlowedCurrencys( this.transformDataApi(data) );
-                  this.currencyRateLists.next([
-                    ...currencyRateLists,
-                    currencyRateListAPI
-                  ]);
-                });
+  loadCurrencyRateAtDate(date: string): void {
+    if (date) {
+      this.selectedDate.next(date);
+      let currencyRateLists: CurrencyRateList[];
+      this.currencyRateLists
+        .asObservable()
+        .subscribe((rateLists) => {
+          currencyRateLists = rateLists;
+        });
+      const isAlreadyInList = currencyRateLists.filter((list) => list.date === date).length > 0;
+      if (!isAlreadyInList) {
+        let currencyRateListAPI: CurrencyRateList;
+        this.http
+            .get(`${this.url}${date}`)
+            .subscribe((data: any) => {
+              currencyRateListAPI = this.sortAlowedCurrencys( this.transformDataApi(data) );
+              this.currencyRateLists.next([
+                ...currencyRateLists,
+                currencyRateListAPI
+              ]);
+            });
     }
+    }
+
   }
 
   private transformDataApi(data: CurrencyRateList): CurrencyRateList {
