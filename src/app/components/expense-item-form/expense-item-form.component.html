@@ -11,6 +11,8 @@
         type="date"
         formControlName="purchasedOn"
         [appDateInput]="expenseItemFormGroup.value.purchasedOn"
+        appRequiredField="date"
+        [appValue]="expenseItemFormGroup.value.purchasedOn"
       />
     </div>
 

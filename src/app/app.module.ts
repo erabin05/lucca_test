@@ -24,6 +24,7 @@ import { DisplayAmountPipe } from './pipes/display-amount.pipe';
 import { ExpensesListSortbarComponent } from './components/expenses-list-sortbar/expenses-list-sortbar.component';
 import { SortButtonDirective } from './components/expenses-list-sortbar/directives/sort-button.directive';
 import { UpdatingDatePipe } from './pipes/updating-date.pipe';
+import { RequiredFieldDirective } from './components/expense-item-form/directives/required-field.directive';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { UpdatingDatePipe } from './pipes/updating-date.pipe';
     AmountInputDirective,
     ExpensesListSortbarComponent,
     SortButtonDirective,
-    UpdatingDatePipe
+    UpdatingDatePipe,
+    RequiredFieldDirective
   ],
   imports: [
     BrowserModule,

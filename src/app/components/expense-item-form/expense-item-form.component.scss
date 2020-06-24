@@ -20,6 +20,10 @@
       margin-left: 10px;
       padding: 4px
     }
+    .selected {
+      border-bottom-color: red;
+      color : red;
+    }
   }
   .amount-form {
     flex-direction: row;
