@@ -5,6 +5,7 @@ import { ExpensesService } from 'src/app/services/expenses.service';
 import { AsideStatusService } from 'src/app/services/aside-status.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { CurrencyRateService } from 'src/app/services/currency-rate.service';
+import { RequieredFieldsService } from 'src/app/services/requiered-fields.service';
 
 @Component({
   selector: 'app-expense-item-form',
@@ -18,6 +19,7 @@ export class ExpenseItemFormComponent implements OnInit {
   expenseItemFormGroup: FormGroup;
   expenseItem = new ExpenseItemForm();
   convertedAmount: Amount;
+  areRequierdFieldsFilledCorrectly: boolean;
 
   SEE = this.asideStatusService.SEE;
   CREATE = this.asideStatusService.CREATE;
@@ -28,7 +30,8 @@ export class ExpenseItemFormComponent implements OnInit {
     private expensesService: ExpensesService,
     public currencyRateService: CurrencyRateService,
     private asideStatusService: AsideStatusService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private requierdFiledsService: RequieredFieldsService
   ) { }
 
   ngOnInit() {
@@ -36,6 +39,7 @@ export class ExpenseItemFormComponent implements OnInit {
     this.expenseItemFormGroup = this.formBuilder.group(this.expenseItem);
     this.initiateExpenseItemForm();
     this.convertAmount();
+    this.checkRequierdFiled();
   }
 
   initiateExpenseItemForm(): void {
@@ -57,25 +61,37 @@ export class ExpenseItemFormComponent implements OnInit {
         });
   }
 
+  checkRequierdFiled() {
+    this.requierdFiledsService
+        .areRfsFilledCorrectly()
+        .subscribe((areThey: boolean) => {
+          this.areRequierdFieldsFilledCorrectly = areThey;
+        });
+  }
+
   submitForm(): void {
     this.expenseItemFormGroup.value.convertedAmount = this.convertedAmount.amount;
-    if (this.toUpdate) {
-      this.expensesService
-        .putExpenseItem(this.expenseItemFormGroup.value)
-        .subscribe(res => {
-          this.notificationService.newNotification(`La dépense a été modifiée`);
-          this.expensesService.loadExpenseItemsInPage();
-          this.expensesService.loadCountOfAllExpenseItems();
-        });
+    if (this.areRequierdFieldsFilledCorrectly) {
+      if (this.toUpdate) {
+        this.expensesService
+          .putExpenseItem(this.expenseItemFormGroup.value)
+          .subscribe(res => {
+            this.notificationService.newNotification(`La dépense a été modifiée`);
+            this.expensesService.loadExpenseItemsInPage();
+            this.expensesService.loadCountOfAllExpenseItems();
+          });
+      } else {
+        this.expensesService
+          .postExpenseItem(this.expenseItemFormGroup.value)
+          .subscribe(res => {
+            this.notificationService.newNotification(`La dépense a été créée`);
+            this.expensesService.loadExpenseItemsInPage();
+            this.expensesService.loadCountOfAllExpenseItems();
+          });
+      }
+      this.asideStatusService.toSEE();
     } else {
-      this.expensesService
-        .postExpenseItem(this.expenseItemFormGroup.value)
-        .subscribe(res => {
-          this.notificationService.newNotification(`La dépense a été créée`);
-          this.expensesService.loadExpenseItemsInPage();
-          this.expensesService.loadCountOfAllExpenseItems();
-        });
+      this.notificationService.newNotification('Remplir les champs obligatoire');
     }
-    this.asideStatusService.toSEE();
   }
 }
