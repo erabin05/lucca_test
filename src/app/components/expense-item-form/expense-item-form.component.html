@@ -10,7 +10,7 @@
         id="date"
         type="date"
         formControlName="purchasedOn"
-        [appDateInput]="expenseItemFormGroup.value.purchasedOn"
+        appDateInput
         appRequiredField="date"
         [appValue]="expenseItemFormGroup.value.purchasedOn"
       />
@@ -22,6 +22,8 @@
         id="nature"
         type="text"
         formControlName="nature"
+        appRequiredField="nature"
+        [appValue]="expenseItemFormGroup.value.nature"
       />
     </div>
 
@@ -33,7 +35,9 @@
               type="number"
               placeholder="0"
               formControlName="originalAmount"
-              [appAmountInput]="expenseItemFormGroup.value.originalAmount"
+              appAmountInput
+              appRequiredField="amount"
+              [appValue]="expenseItemFormGroup.value.originalAmount"
             />
         </div>
         <div>

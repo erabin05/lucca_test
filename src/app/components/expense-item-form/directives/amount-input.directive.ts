@@ -5,7 +5,7 @@ import { CurrencyRateService } from 'src/app/services/currency-rate.service';
   selector: '[appAmountInput]'
 })
 export class AmountInputDirective implements OnChanges {
-  @Input('appAmountInput') value;
+  @Input() appValue;
 
   constructor(
     private currencyRateService: CurrencyRateService
@@ -13,6 +13,6 @@ export class AmountInputDirective implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.currencyRateService.convertInEuro(changes.value.currentValue);
+    this.currencyRateService.convertInEuro(changes.appValue.currentValue);
   }
 }

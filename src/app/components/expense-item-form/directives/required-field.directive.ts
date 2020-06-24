@@ -13,11 +13,18 @@ export class RequiredFieldDirective implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    const currentValue = changes.appValue.currentValue;
     switch (this.type) {
       case 'date':
         const today = new Date();
-        const selectedDate = new Date(changes.appValue.currentValue);
+        const selectedDate = new Date(currentValue);
         this.redSignIf(selectedDate > today);
+        break;
+      case 'nature':
+        this.redSignIf(!currentValue && currentValue === '');
+        break;
+      case 'amount':
+        this.redSignIf(currentValue === 0);
         break;
     }
   }
@@ -31,7 +38,5 @@ export class RequiredFieldDirective implements OnChanges {
     } else {
       this.el.nativeElement.className = className.replace('selected', '');
     }
-
   }
-
 }

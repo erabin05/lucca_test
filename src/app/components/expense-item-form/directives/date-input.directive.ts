@@ -5,13 +5,14 @@ import { CurrencyRateService } from 'src/app/services/currency-rate.service';
   selector: '[appDateInput]'
 })
 export class DateInputDirective implements OnChanges {
-  @Input('appDateInput') value;
+  @Input() appValue;
 
   constructor(
     private currencyRateService: CurrencyRateService
   ) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.currencyRateService.loadCurrencyRateAtDate(changes.value.currentValue);
+    console.log(changes);
+    this.currencyRateService.loadCurrencyRateAtDate(changes.appValue.currentValue);
   }
 }
