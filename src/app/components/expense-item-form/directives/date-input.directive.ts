@@ -12,7 +12,6 @@ export class DateInputDirective implements OnChanges {
   ) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
     this.currencyRateService.loadCurrencyRateAtDate(changes.appValue.currentValue);
   }
 }

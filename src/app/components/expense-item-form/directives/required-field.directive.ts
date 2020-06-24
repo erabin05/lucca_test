@@ -1,4 +1,5 @@
 import { Directive, OnChanges, OnInit, Input, SimpleChanges, ElementRef } from '@angular/core';
+import { RequieredFieldsService } from 'src/app/services/requiered-fields.service';
 
 @Directive({
   selector: '[appRequiredField]'
@@ -6,10 +7,11 @@ import { Directive, OnChanges, OnInit, Input, SimpleChanges, ElementRef } from '
 export class RequiredFieldDirective implements OnChanges {
   @Input('appRequiredField') type: string;
   @Input() appValue: string;
-  el: ElementRef;
 
-  constructor(el: ElementRef) {
-    this.el = el;
+  constructor(
+    private el: ElementRef,
+    private requierdFieldService: RequieredFieldsService
+    ) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -21,10 +23,10 @@ export class RequiredFieldDirective implements OnChanges {
         this.redSignIf(selectedDate > today);
         break;
       case 'nature':
-        this.redSignIf(!currentValue && currentValue === '');
+        this.redSignIf(!currentValue || currentValue === '');
         break;
       case 'amount':
-        this.redSignIf(currentValue === 0);
+        this.redSignIf(!currentValue || currentValue === 0);
         break;
     }
   }
@@ -32,10 +34,12 @@ export class RequiredFieldDirective implements OnChanges {
   redSignIf(condition: boolean) {
     const className = this.el.nativeElement.className;
     if (condition) {
+      this.requierdFieldService.changeField(this.type, false);
       if (!className.includes('selected')) {
         this.el.nativeElement.className = `${className} selected`;
       }
     } else {
+      this.requierdFieldService.changeField(this.type, true);
       this.el.nativeElement.className = className.replace('selected', '');
     }
   }
